@@ -34,4 +34,12 @@ export class ZoneService {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
     }
+    create(name: string): Promise<Zone> {
+    console.log(JSON.stringify({name: name}));
+    return this.http
+        .post(`https://api.wadis.com.ar/zones?name=` + name, JSON.stringify({name: name}))
+        .toPromise()
+        .then(res => res.json().data as Zone)
+        .catch(this.handleError);
+    }
 }

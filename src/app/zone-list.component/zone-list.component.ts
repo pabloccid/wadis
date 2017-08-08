@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Zone } from '../zone';
 import { ZoneService } from '../zone.service';
 import { OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 import { PipeTransform, Pipe } from '@angular/core';
 
 
@@ -25,9 +25,16 @@ export class ListZoneComponent implements OnInit {
   zones: Zone[];
   selectedZone: Zone;
 
-  constructor(private zoneService: ZoneService, private router: Router) { }
+  constructor(private zoneService: ZoneService, private router: Router) {
+    router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.getZones();
+        console.log('get');
+      }
+    });   }
   getZones(): void {
     this.zoneService.getZoneAPI().then(zones => this.zones = zones);
+    console.log(this.zones);
     // this.zoneService.getZoneAPI().subscribe(data => this.zones = data);
   }
   ngOnInit(): void {

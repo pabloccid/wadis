@@ -7,16 +7,17 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component/app.component';
 import { DashboardComponent } from './dashboard.component/dashboard.component';
-import { HeroDetailComponent } from './hero-detail.component/hero-detail.component';
-import { HeroesComponent } from './heroes.component/heroes.component';
 import { ListContainerComponent } from './container-list.component/container-list.component';
 import { ContainerMapComponent } from './container-map.component/container-map.component';
 import { ListZoneComponent } from './zone-list.component/zone-list.component';
+import { NewZoneComponent } from './zone-new.component/zone-new.component';
+import { ListProfileComponent } from './profile-list.component/profile-list.component';
 
 
 import { HeroService } from './hero.service';
 import { ContainerService } from './container.service';
 import { ZoneService } from './zone.service';
+import { ProfileService } from './profile.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -36,13 +37,13 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     AppComponent,
     NavbarComponent,
     DashboardComponent,
-    HeroDetailComponent,
-    HeroesComponent,
     ListContainerComponent,
     ContainerMapComponent,
     ListZoneComponent,
+    NewZoneComponent,
+    ListProfileComponent,
   ],
-  providers: [ HeroService, ContainerService, ZoneService ],
+  providers: [ HeroService, ContainerService, ZoneService, ProfileService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
