@@ -26,8 +26,8 @@ export class ContainerService {
     }
     getContainerAPI(): Promise<Container[]> {
         const headers = new Headers();
-        console.log(this.http.get(`https://api.wadis.com.ar/containers`)
-        .map((res: Response) => res.json()));
+        // console.log(this.http.get(`https://api.wadis.com.ar/containers`)
+        // .map((res: Response) => res.json()));
         // return this.http.get(`https://api.wadis.com.ar/containers`)
         //     .map((res: Response) => res.json());
         return this.http.get(`https://api.wadis.com.ar/containers`)

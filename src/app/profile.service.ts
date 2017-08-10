@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/Rx';
 import {Headers} from '@angular/http';
-
+import { Observable } from 'rxjs';
 import { Profile } from './profile';
 // import { ZONES } from './mock-profile';
 
@@ -24,10 +24,9 @@ export class ProfileService {
     // return this.getProfiles()
     //             .then(profiles => profiles.find(profile => profile.id === id));
     // }
-    getProfileAPI(): Promise<Profile[]> {
+    getProfileAPI(): Observable<Profile[]> {
         return this.http.get(`https://api.wadis.com.ar/userprofiles`)
-        .toPromise()
-        .then(response => response.json().data as Profile[])
+        .map(response => response.json().data as Profile[])
         .catch(this.handleError);
     }
     private handleError(error: any): Promise<any> {

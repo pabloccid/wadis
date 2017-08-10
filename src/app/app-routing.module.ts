@@ -7,6 +7,8 @@ import { ContainerMapComponent } from './container-map.component/container-map.c
 import { ListZoneComponent } from './zone-list.component/zone-list.component';
 import { NewZoneComponent } from './zone-new.component/zone-new.component';
 import { ListProfileComponent } from './profile-list.component/profile-list.component';
+import { ListUserComponent } from './user-list.component/user-list.component';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -16,7 +18,7 @@ export const routes: Routes = [
   { path: 'zonelist',     component: ListZoneComponent },
   { path: 'zonenew',     component: NewZoneComponent },
   { path: 'profilelist',     component: ListProfileComponent },
-
+  { path: 'userlist',     component: ListUserComponent },
 ];
 
 @NgModule({

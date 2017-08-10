@@ -12,12 +12,14 @@ import { ContainerMapComponent } from './container-map.component/container-map.c
 import { ListZoneComponent } from './zone-list.component/zone-list.component';
 import { NewZoneComponent } from './zone-new.component/zone-new.component';
 import { ListProfileComponent } from './profile-list.component/profile-list.component';
+import { ListUserComponent } from './user-list.component/user-list.component';
 
 
 import { HeroService } from './hero.service';
 import { ContainerService } from './container.service';
 import { ZoneService } from './zone.service';
 import { ProfileService } from './profile.service';
+import { UserService } from './user.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -42,8 +44,9 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     ListZoneComponent,
     NewZoneComponent,
     ListProfileComponent,
+    ListUserComponent,
   ],
-  providers: [ HeroService, ContainerService, ZoneService, ProfileService ],
+  providers: [ HeroService, ContainerService, ZoneService, ProfileService, UserService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
