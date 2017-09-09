@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item " routerLinkActive="active" >
-          <a class="nav-link" [routerLink] = "['dashboard']" >Alertas <span class="sr-only">(current)</span></a>
+          <a class="nav-link" [routerLink] = "['alertlist']" >Alertas <span class="sr-only">(current)</span></a>
         </li>
         <div ngbDropdown class="d-inline-block">
           <a class="nav-link dropdown-toggle" id="navbarDropdownContainers" ngbDropdownToggle>
@@ -42,9 +42,9 @@
             Administracion
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" [routerLink] = "['usuario-nuevo']" >Nuevo Usuario</a>
+            <a class="dropdown-item" [routerLink] = "['usernew']" >Nuevo Usuario</a>
             <a class="dropdown-item" [routerLink] = "['userlist']" >Listar Usuarios</a>
-            <a class="dropdown-item" [routerLink] = "['puesto-nuevo']">Nuevo Puesto de Trabajo</a>
+            <a class="dropdown-item" [routerLink] = "['profilenew']">Nuevo Puesto de Trabajo</a>
             <a class="dropdown-item" [routerLink] = "['profilelist']">Listar Puestos de Trabajo</a>
           </div>
         </div>

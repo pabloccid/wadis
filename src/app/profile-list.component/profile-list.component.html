@@ -15,4 +15,15 @@
           <td><button type="button" class="btn btn-primary">Editar</button></td>
       </tr>
     </table>
+    <div class="row">
+      <div class="offset-sm-5 col-sm-2" style="text-align: center;">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination text-center">
+            
+            <li class="page-item" (click)="prevPage()" *ngIf="!(page === 1)"><a class="page-link">Anterior</a></li>
+            <li class="page-item" (click)="nextPage()" *ngIf="!(page === last_page)"><a class="page-link">Siguiente</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>      
   </div>

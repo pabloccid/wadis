@@ -8,6 +8,10 @@ import { ListZoneComponent } from './zone-list.component/zone-list.component';
 import { NewZoneComponent } from './zone-new.component/zone-new.component';
 import { ListProfileComponent } from './profile-list.component/profile-list.component';
 import { ListUserComponent } from './user-list.component/user-list.component';
+import { NewProfileComponent } from './profile-new.component/profile-new.component';
+import { NewUserComponent } from './user-new.component/user-new.component';
+import { ListAlertComponent } from './alert-list.component/alert-list.component';
+import { EditZoneComponent } from './zone-edit.component/zone-edit.component';
 
 
 export const routes: Routes = [
@@ -19,6 +23,10 @@ export const routes: Routes = [
   { path: 'zonenew',     component: NewZoneComponent },
   { path: 'profilelist',     component: ListProfileComponent },
   { path: 'userlist',     component: ListUserComponent },
+  { path: 'profilenew',     component: NewProfileComponent },
+  { path: 'usernew',     component: NewUserComponent },
+  { path: 'alertlist',     component: ListAlertComponent },
+  { path: 'zoneedit/:id',     component: EditZoneComponent },
 ];
 
 @NgModule({

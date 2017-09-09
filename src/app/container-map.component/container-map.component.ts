@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Container } from '../container';
+import { Container, Location } from '../container';
 import { ContainerService } from '../container.service';
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -20,7 +20,21 @@ export class ContainerMapComponent implements OnInit {
 
   constructor(private containerService: ContainerService, private router: Router) { }
   getContainers(): void {
-    this.containerService.getContainers().then(containers => this.containers = containers);
+    this.containerService.getContainersSimple().subscribe(
+      (response) => {
+        this.containers = response.data;
+        this.containers.forEach(function(element, index, object) {
+
+
+          if (!element.latest_location) {
+            // object.splice(index, 1);
+          }else {
+            element.latest_location.geo_x = +element.latest_location.geo_x;
+            element.latest_location.geo_y = +element.latest_location.geo_y;
+
+          }
+        });
+      });
   }
   ngOnInit(): void {
     this.getContainers();

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { User } from '../user';
-import { UserService } from '../user.service';
+import { Container } from '../container';
+import { ContainerService } from '../container.service';
 import { OnInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { PipeTransform, Pipe } from '@angular/core';
@@ -9,10 +9,10 @@ import { IntervalObservable } from "rxjs/observable/IntervalObservable";
 
 
 @Component({
-  selector: 'app-user-list',
-  styleUrls: ['./user-list.component.css'],
-  templateUrl: 'user-list.component.html',
-  providers: [UserService]
+  selector: 'app-alert-list',
+  styleUrls: ['./alert-list.component.css'],
+  templateUrl: 'alert-list.component.html',
+  providers: [ContainerService]
 })
 
 // @Pipe({ name: 'keys',  pure: false })
@@ -22,63 +22,62 @@ import { IntervalObservable } from "rxjs/observable/IntervalObservable";
 //     }
 // }
 
-export class ListUserComponent implements OnInit {
+export class ListAlertComponent implements OnInit {
 
-  users: User[];
-  selectedUser: User;
+  containers: Container[];
+  selectedContainer: Container;
   alive: boolean;
   private timer: Observable<number>;
   public page: number;
   public last_page: number;
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private containerService: ContainerService, private router: Router) {
     router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-        this.getUsers();
+        this.getProfiles();
         console.log('get');
       }
     });
-    this.timer = Observable.timer(0, 100);
+    this.timer = Observable.timer(0, 1000);
   }
-  getUsers(): void {
-    this.userService.getUserAPI(this.page).subscribe(
+  getProfiles(): void {
+    this.containerService.getContainerAPI(this.page).subscribe(
       (response) => {
-        this.users = response.data;
+        this.containers = response.data;
         this.last_page = response.last_page;
       });
-    console.log(this.users);
     // this.profileService.getProfileAPI().subscribe(data => this.profiles = data);
 
   }
   ngOnInit(): void {
     this.page = 1;
-    this.getUsers();
+    this.getProfiles();
     this.timer
           .takeWhile(() => this.alive)
           .subscribe(() => {
-            this.userService.getUserAPI(this.page).subscribe(
+            this.containerService.getContainerAPI(this.page).subscribe(
               (response) => {
-                this.users = response.data;
+                this.containers = response.data;
                 this.last_page = response.last_page;
               });
           });
   }
 
-  onSelect(user: User): void {
-    this.selectedUser = user;
+  onSelect(container: Container): void {
+    this.selectedContainer = container;
   }
   gotoDetail(): void {
-    this.router.navigate(['/detail', this.selectedUser.id]);
+    this.router.navigate(['/detail', this.selectedContainer.id]);
   }
 
   public nextPage() {
     this.page ++;
-    this.getUsers();
+    this.getProfiles();
     console.log('Paso pagina: ' + this.last_page);
   }
 
   prevPage() {
     this.page --;
-    this.getUsers();
+    this.getProfiles();
   }
 }

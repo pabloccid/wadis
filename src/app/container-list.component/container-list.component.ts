@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { Container } from '../container';
 import { ContainerService } from '../container.service';
 import { OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 import { PipeTransform, Pipe } from '@angular/core';
+import { Observable } from "rxjs";
+import { IntervalObservable } from "rxjs/observable/IntervalObservable";
 
 
 @Component({
@@ -24,14 +26,43 @@ export class ListContainerComponent implements OnInit {
 
   containers: Container[];
   selectedContainer: Container;
+  alive: boolean;
+  private timer: Observable<number>;
+  public page: number;
+  public last_page: number;
 
-  constructor(private containerService: ContainerService, private router: Router) { }
+  constructor(private containerService: ContainerService, private router: Router) {
+    router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.getContainers();
+        console.log('get');
+      }
+    });
+    this.timer = Observable.timer(0, 1000);
+  }
   getContainers(): void {
-    this.containerService.getContainerAPI().then(containers => this.containers = containers);
-    // this.containerService.getContainerAPI().subscribe(data => this.containers = data);
+    // console.log(this.containers);
+
+    this.containerService.getContainerAPI(this.page).subscribe(
+      (response) => {
+        this.containers = response.data;
+        this.last_page = response.last_page;
+      });
+    // this.profileService.getProfileAPI().subscribe(data => this.profiles = data);
+
   }
   ngOnInit(): void {
+    this.page = 1;
     this.getContainers();
+    this.timer
+          .takeWhile(() => this.alive)
+          .subscribe(() => {
+            this.containerService.getContainerAPI(this.page).subscribe(
+              (response) => {
+                this.containers = response.data;
+                this.last_page = response.last_page;
+              });
+          });
   }
 
   onSelect(container: Container): void {
@@ -39,5 +70,16 @@ export class ListContainerComponent implements OnInit {
   }
   gotoDetail(): void {
     this.router.navigate(['/detail', this.selectedContainer.id]);
+  }
+
+  public nextPage() {
+    this.page ++;
+    this.getContainers();
+    console.log('Paso pagina: ' + this.last_page);
+  }
+
+  prevPage() {
+    this.page --;
+    this.getContainers();
   }
 }

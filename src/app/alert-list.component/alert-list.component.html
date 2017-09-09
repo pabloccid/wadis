@@ -1,4 +1,4 @@
-  <h2>Contenedores</h2>
+  <h2>Alertas</h2>
   <div class="container">
     <table class="table">
       <thead class="thead-inverse">
@@ -8,7 +8,7 @@
           <th>Type</th>
           <th>Location</th>
           <th>Status</th>
-          <th>Action</th>
+          <th>Date</th>
         </tr>
       </thead>
 
@@ -32,7 +32,7 @@
             <div class="btn btn-primary" *ngIf="container.latest_container_states.state_type==2">Nueva Ubicación</div>
             
           </td>
-          <td><button type="button" class="btn btn-primary">Editar</button></td>
+          <td>{{container.latest_container_states.updated_at}}</td>
       </tr>
     </table>
     <div class="row">

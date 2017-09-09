@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import 'rxjs/Rx';
 import {Headers} from '@angular/http';
 import { Observable } from 'rxjs';
-import { Profile } from './profile';
+import { Profile, ProfileServiceResponse } from './profile';
 // import { ZONES } from './mock-profile';
 
 @Injectable()
@@ -24,14 +24,29 @@ export class ProfileService {
     // return this.getProfiles()
     //             .then(profiles => profiles.find(profile => profile.id === id));
     // }
-    getProfileAPI(): Observable<Profile[]> {
-        return this.http.get(`https://api.wadis.com.ar/userprofiles`)
-        .map(response => response.json().data as Profile[])
-        .catch(this.handleError);
+    getProfileAPI(page: number): Observable<ProfileServiceResponse> {
+        if (page === 1) {
+            return this.http.get(`https://api.wadis.com.ar/userprofiles`)
+            .map(response => response.json())
+            .catch(this.handleError);
+        } else {
+            return this.http.get(`https://api.wadis.com.ar/userprofiles?page=` + page)
+            .map(response => response.json())
+            .catch(this.handleError);
+        }
     }
+
+
     private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
     }
-
+    create(name: string): Promise<Profile> {
+    console.log(JSON.stringify({name: name}));
+    return this.http
+        .post(`https://api.wadis.com.ar/userprofiles?name=` + name, JSON.stringify({name: name}))
+        .toPromise()
+        .then(res => res.json().data as Profile)
+        .catch(this.handleError);
+    }
 }

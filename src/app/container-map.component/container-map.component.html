@@ -1,6 +1,11 @@
   <h2>Mapa de Contenedores</h2>
   <div class="container">
     <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-      <agm-marker *ngFor="let container of containers" [latitude]="container.coord_x" [longitude]="container.coord_y"></agm-marker>
+      <agm-marker *ngFor="let container of containers"  
+      [latitude]="container?.latest_location?.geo_x" 
+      [longitude]="container?.latest_location?.geo_y">
+        
+      </agm-marker>
     </agm-map>
   </div>
+  
