@@ -1,8 +1,10 @@
+import { ZoneService } from './../zone.service';
 import { Component } from '@angular/core';
 import { Container, Location } from '../container';
 import { ContainerService } from '../container.service';
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Zone } from '../zone';
 
 
 @Component({
@@ -16,9 +18,9 @@ export class ContainerMapComponent implements OnInit {
   lng = -58.438936;
   zoom = 12;
   containers: Container[];
-  zones: Array<String> = ['', '', ''];
+  zones: Zone[] = new Array<Zone>();
 
-  constructor(private containerService: ContainerService, private router: Router) { }
+  constructor(private containerService: ContainerService, private zoneService: ZoneService, private router: Router) { }
   getContainers(): void {
     this.containerService.getContainersSimple().subscribe(
       (response) => {
@@ -34,10 +36,33 @@ export class ContainerMapComponent implements OnInit {
 
           }
         });
+        // console.log(this.containers);
       });
   }
   ngOnInit(): void {
+
     this.getContainers();
+    this.getEveryZone();
+  }
+  clickedMarker(label: string, index: number) {
+    console.log(`clicked the marker: ${label || index}`)
   }
 
+  getEveryZone(): void {
+    this.zoneService.getEveryZone().subscribe(
+    (response) => {
+      let zone: Zone;
+      zone = {  id: 0 ,
+                name: 'Todas'
+             };
+        this.zones[0] = zone;
+        response.data.forEach(element => {
+          this.zones.push(element);
+        });
+        // this.zones.splice(0, 1);
+    });
+    console.log(this.zones);
+    // this.profileService.getProfileAPI().subscribe(data => this.profiles = data);
+
+  }
 }

@@ -49,4 +49,11 @@ export class ProfileService {
         .then(res => res.json().data as Profile)
         .catch(this.handleError);
     }
+
+    getEveryProfile(): Observable<ProfileServiceResponse> {
+        return this.http.get(`https://api.wadis.com.ar/userprofiles?per_page=50`)
+            .map(response => response.json())
+            .catch(this.handleError);
+
+    }
 }

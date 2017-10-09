@@ -5,6 +5,13 @@
         <tr>
           <th>ID</th>
           <th>Name</th>
+          <th>Last Name</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>DNI</th>
+          <th>Root</th>
+          <th>Zone</th>
+          <th>User Profile</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -12,6 +19,13 @@
       <tr *ngFor="let user of users">
           <td>{{user.id}}</td>
           <td>{{user.name}}</td>
+          <td>{{user.last_name}}</td>
+          <td>{{user.username}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.identification}}</td>
+          <td><div class="btn btn-primary" *ngIf="user.root == 1">Admin</div></td>
+          <td>{{user.zone?.name}}</td>
+          <td>{{user.user_profile?.name}}</td>
           <td><button type="button" class="btn btn-primary">Editar</button></td>
       </tr>
     </table>

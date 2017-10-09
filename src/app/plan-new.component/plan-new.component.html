@@ -1,0 +1,68 @@
+<h2>
+	Nuevo Plan
+</h2>
+	<hr>
+<div class="container">
+  <form #f>
+	<div class="form-group row">
+			<label for="description" class="col-sm-2 col-form-label">Descripción</label>
+      <div class="col-sm-4">
+				<input type="text" class="form-control" id="description" #description placeholder="Descripción">
+			</div>    
+			<label for="usuario-tipo-doc" class="col-sm-2 col-form-label">Tarea</label>
+			<div class="col-sm-4">
+					<select id="task_id" #taskid class="form-control">
+						<option value="1">Recolectar</option>
+						<option value="2">Limpiar</option>
+						<option value="3">Visita de Mantenimiento</option>
+						<option value="4">Levantar Contenedor Volcado</option>
+						<option value="5">Apagar Incendio</option>
+					</select>      
+			</div>
+		</div>		
+  	<div class="form-group row">
+      <label for="frecuency_type_id" class="col-sm-2 col-form-label">Unidad</label>
+			<div class="col-sm-4">
+					<select id="frecuency_type_id" #frecuencytypeid class="form-control">
+						<option value="1">Día</option>
+						<option value="2">Semana</option>
+						<option value="3">Mes</option>
+						<option value="4">Año</option>
+					</select>      
+			</div>
+      <label for="frecuency" class="col-sm-2 col-form-label">Frecuencia</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="frecuency" #frecuency placeholder="Frecuencia">
+      </div>
+  	</div>  	
+
+
+    <div class="form-group row">
+      <label for="usuario-email" class="col-sm-2 col-form-label">Fecha Inicio</label>
+  		<div class="col-sm-4">
+				<div class="datepicker-container">
+					<ng-datepicker #datestart id="date_start" [options]="options" [(ngModel)]="date_start" name="date_start" ></ng-datepicker>
+				</div>
+  		</div>
+      	<label for="usuario-password" class="col-sm-2 col-form-label">Fecha Fin</label>
+		<div class="col-sm-4">
+			<input type="text" class="form-control" id="date_end" #dateend placeholder="Fecha Fin">	
+			</div>
+  	</div>
+
+    <div class="botones">
+		<div class="form-group row">
+			<div class="offset-sm-5 col-sm-2">
+				<button class="btn btn-primary btn-lg" (click)="add(description.value, 
+																												taskid.value, 
+																												frecuency.value, 
+																												frecuencytypeid.value, 
+																												datestart.value, 
+																												dateend.value);">Guardar</button>
+			</div>      
+		</div>   	
+    </div>
+
+	</form>
+	<!-- <p>{{ f | json}}</p> -->
+</div>

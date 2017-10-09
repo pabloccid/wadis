@@ -1,3 +1,6 @@
+import { EditPlanComponent } from './plan-edit.component/plan-edit.component';
+import { NewPlanComponent } from './plan-new.component/plan-new.component';
+import { CalendarComponent } from './calendar.component/calendar.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -12,6 +15,8 @@ import { NewProfileComponent } from './profile-new.component/profile-new.compone
 import { NewUserComponent } from './user-new.component/user-new.component';
 import { ListAlertComponent } from './alert-list.component/alert-list.component';
 import { EditZoneComponent } from './zone-edit.component/zone-edit.component';
+import { EditContainerComponent } from './container-edit.component/container-edit.component';
+import { ListPlanComponent } from './plan-list.component/plan-list.component';
 
 
 export const routes: Routes = [
@@ -27,6 +32,11 @@ export const routes: Routes = [
   { path: 'usernew',     component: NewUserComponent },
   { path: 'alertlist',     component: ListAlertComponent },
   { path: 'zoneedit/:id',     component: EditZoneComponent },
+  { path: 'containeredit/:id',     component: EditContainerComponent },
+  { path: 'calendar',     component: CalendarComponent },
+  { path: 'planlist',     component: ListPlanComponent },
+  { path: 'plannew',    component: NewPlanComponent},
+  { path: 'planedit/:id',     component: EditPlanComponent }
 ];
 
 @NgModule({

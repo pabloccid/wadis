@@ -18,8 +18,7 @@
             <tr>
               <th>ID</th>
               <th>Type</th>
-              <!-- <th>Location</th>
-              <th>Status</th> -->
+              <th>Location</th>
             </tr>
           </thead>
     
@@ -29,19 +28,9 @@
                 <div class="btn btn-primary" *ngIf="container.green===0">Común</div>
                 <div class="btn btn-success" *ngIf="container.green===1">Reciclaje</div>
               </td>
-              <!-- <td>
-                <div class="btn btn-success" *ngIf="container.latest_location">{{container.latest_location.geo_x}}, {{container.latest_location.geo_y}}</div> -->
-              <!-- <td>
-                <div class="btn btn-success" *ngIf="container.latest_container_states.state_type==1 && container.latest_container_states.states.value==0">{{container.latest_container_states.states.value}}%</div>
-                <div class="btn btn-primary" *ngIf="container.latest_container_states.state_type==1 && container.latest_container_states.states.value==25">{{container.latest_container_states.states.value}}%</div>
-                <div class="btn btn-warning" *ngIf="container.latest_container_states.state_type==1 && container.latest_container_states.states.value==50">{{container.latest_container_states.states.value}}%</div>
-                <div class="btn btn-warning" *ngIf="container.latest_container_states.state_type==1 && container.latest_container_states.states.value==75">{{container.latest_container_states.states.value}}%</div>
-                <div class="btn btn-danger" *ngIf="container.latest_container_states.state_type==1 && container.latest_container_states.states.value==100">{{container.latest_container_states.states.value}}%</div>
-                <div class="btn btn-primary" *ngIf="container.latest_container_states.state_type==3 && container.latest_container_states.states.alert_type.name==='Nuevo'">{{container.latest_container_states.states.alert_type.name}}</div>
-                <div class="btn btn-danger" *ngIf="container.latest_container_states.state_type==3 && !(container.latest_container_states.states.alert_type.name==='Nuevo')">{{container.latest_container_states.states.alert_type.name}}</div>
-                <div class="btn btn-primary" *ngIf="container.latest_container_states.state_type==2">Nueva Ubicación</div>
-                
-              </td> -->
+              <td>
+                <div class="btn btn-success" *ngIf="container.latest_location">{{container.latest_location.geo_x}}, {{container.latest_location.geo_y}}</div>
+
           </tr>
         </table>
       </div>

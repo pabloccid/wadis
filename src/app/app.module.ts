@@ -1,3 +1,5 @@
+import { EditPlanComponent } from './plan-edit.component/plan-edit.component';
+import { CalendarComponent } from './calendar.component/calendar.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +19,9 @@ import { NewProfileComponent } from './profile-new.component/profile-new.compone
 import { NewUserComponent } from './user-new.component/user-new.component';
 import { ListAlertComponent } from './alert-list.component/alert-list.component';
 import { EditZoneComponent } from './zone-edit.component/zone-edit.component';
+import { EditContainerComponent } from './container-edit.component/container-edit.component';
+import { ListPlanComponent } from './plan-list.component/plan-list.component';
+import { NewPlanComponent } from './plan-new.component/plan-new.component';
 
 
 import { HeroService } from './hero.service';
@@ -24,9 +29,14 @@ import { ContainerService } from './container.service';
 import { ZoneService } from './zone.service';
 import { ProfileService } from './profile.service';
 import { UserService } from './user.service';
+import { PlanService } from './plan.service';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+
+import { CalendarModule } from 'angular-calendar';
+import { NgDatepickerModule } from 'ng2-datepicker';
 
 @NgModule({
   imports: [
@@ -37,7 +47,10 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     NgbModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyD22G_nbt9I-aTZs3fPTyFBMyC5Y0_Wj1A'
-    })
+    }),
+    BrowserModule,
+    CalendarModule.forRoot(),
+    NgDatepickerModule
   ],
   declarations: [
     AppComponent,
@@ -53,8 +66,13 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     NewUserComponent,
     ListAlertComponent,
     EditZoneComponent,
+    EditContainerComponent,
+    CalendarComponent,
+    ListPlanComponent,
+    NewPlanComponent,
+    EditPlanComponent
   ],
-  providers: [ HeroService, ContainerService, ZoneService, ProfileService, UserService ],
+  providers: [ HeroService, ContainerService, ZoneService, ProfileService, UserService, PlanService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

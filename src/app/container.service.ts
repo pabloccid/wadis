@@ -4,7 +4,7 @@ import 'rxjs/Rx';
 import {Headers} from '@angular/http';
 import { Observable } from 'rxjs';
 
-import { Container, ContainerServiceResponse } from './container';
+import { Container, ContainerServiceResponse, States, ContainerTask, Plan } from './container';
 // import { CONTAINERS } from './mock-container';
 
 @Injectable()
@@ -64,5 +64,42 @@ export class ContainerService {
         return this.http.get('http://api.wadis.com.ar/zones/' + zone + '/containers')
         .map(response => response.json())
         .catch(this.handleError);
+    }
+
+    getContainerEdit(id: number): Observable<Container> {
+        console.log('https://api.wadis.com.ar/containers/' + id);
+        return this.http.get(`https://api.wadis.com.ar/containers/` + id)
+        .map(response => response.json().data)
+        .catch(this.handleError);
+
+    }
+
+    getContainerHistory(id: number): Observable<States[]> {
+        console.log('https://api.wadis.com.ar/containers/' + id + '/containerstates');
+        return this.http.get('https://api.wadis.com.ar/containers/' + id + '/containerstates')
+        .map(response => response.json().data)
+        .catch(this.handleError);
+
+    }
+    getContainerTasks(id: number): Observable<ContainerTask[]> {
+        console.log('https://api.wadis.com.ar/containers/' + id + '/containertasks');
+        return this.http.get('https://api.wadis.com.ar/containers/' + id + '/containertasks')
+        .map(response => response.json().data)
+        .catch(this.handleError);
+
+    }
+
+    getPlansCalendar(month: number, year: number): Observable<Plan[]> {
+        var headers = new Headers();
+        let formData: FormData = new FormData();
+        console.log(month.toString() + '-' + year.toString());
+        formData.append('month', month.toString());
+        formData.append('year', year.toString());
+        headers.append('Content-Type', 'application/json');
+        return this.http
+        .post(`https://api.wadis.com.ar/planscalendar`, formData)
+        .map(response => response.json().data)
+        .catch(this.handleError);
+
     }
 }

@@ -43,10 +43,11 @@
       <label for="usuario-puesto" class="col-sm-2 col-form-label">Puesto</label>
       <div class="col-sm-4">
         	<select id="usuario-puesto" #usuariopuesto class="form-control">
-        		<option value="0">Seleccione Puesto</option>
+						<option *ngFor="let profile of profiles" value="{{profile.id}}">{{profile.name}}</option>
+        		<!-- <option value="0">Seleccione Puesto</option>
         		<option value="1">Recolector</option>
         		<option value="2">Mantenimiento</option>
-        		<option value="3">Limpieza</option>
+        		<option value="3">Limpieza</option> -->
         	</select>
       </div>
       <label for="usuario-perfil" class=" col-sm-2 col-form-label">Administrador</label>      

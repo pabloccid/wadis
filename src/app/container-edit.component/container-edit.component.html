@@ -1,0 +1,113 @@
+  <h2>Editar Container</h2>
+  <div class="container" *ngIf="container">
+      <table class="table">
+
+        <tr>
+            <td>Código</td>
+            <td><input [(ngModel)]="container.code" placeholder="code" /></td>
+        </tr>
+        <tr>    
+            <td>Tipo</td>
+            <td>
+              <select  [(ngModel)]="container.green">
+                <option value='0'>Común</option>
+                <option value='1'>Reciclaje</option>
+              </select>
+            </td>
+        </tr>
+        <tr>    
+            <td>Zona</td>
+            <td>
+              <select id="zoneID" class="form-control" #zoneID>
+                <option *ngFor="let zone of zones" value="{{container.zone_id}}">{{zone.name}}</option>
+              </select>
+            </td>
+        </tr>
+        <tr>
+            <td><button class="btn btn-primary" (click)="postEditZone(container);">Guardar</button></td>
+
+            
+        </tr>
+      </table>
+  </div>
+  <h2>Historial</h2>
+  <div class="container">
+        <table class="table">
+          <thead class="thead-inverse">
+            <tr>
+              <th>Tipo</th>
+              <th>Fecha</th>
+              <!-- <th>Location</th> -->
+            </tr>
+          </thead>
+    
+          <tr *ngFor="let state of states">
+              <td>
+                <div class="btn btn-primary" *ngIf="state.state_type==1 && state.states.value<=25">{{state.states.value}}%</div>
+                <div class="btn btn-warning" *ngIf="state.state_type==1 && state.states.value<75 && state.states.value>25">{{state.states.value}}%</div>
+                <div class="btn btn-danger" *ngIf="state.state_type==1 && state.states.value>=75">{{state.states.value}}%</div>
+                <div class="btn btn-primary" *ngIf="state.state_type==3 && state.states.alert_type.name==='Nuevo'">{{state.states.alert_type.name}}</div>
+                <div class="btn btn-danger" *ngIf="state.state_type==3 && !(state.states.alert_type.name==='Nuevo')">{{state.states.alert_type.name}}</div>
+                <div class="btn btn-primary" *ngIf="state.state_type==2">Nueva Ubicación</div>
+              </td>  
+              <td>
+                  {{state.created_at}}
+              </td>
+
+          </tr>
+        </table>
+      </div>
+
+  <h2>Tareas</h2>
+  <div class="container">
+        <table class="table">
+          <thead class="thead-inverse">
+            <tr>
+              <th>Tarea</th>
+              <th>Descripcion</th>
+              <th>Puesto</th>
+              <th>Fecha Prevista</th>
+              <th>Fecha Realización</th>
+            </tr>
+          </thead>
+    
+          <tr *ngFor="let task of tasks">
+              <td>
+                {{task.task.task_type?.name}}
+              </td>
+              <td>
+                {{task.task.task_type?.description}}
+              </td>
+              <td>
+                {{task.task.user_profile?.name}}
+              </td>
+              <td>
+                {{task.date_execution}}
+              </td>  
+              <td>
+                {{task?.date_done}}
+              </td>
+
+          </tr>
+        </table>
+      </div>  
+
+      <h2>Planes</h2>
+      <div class="container">
+            <table class="table">
+              <thead class="thead-inverse">
+                <tr>
+                  <th>Tarea</th>
+                  <th>Descripcion</th>
+                  <th>Puesto</th>
+                  <th>Fecha Prevista</th>
+                  <th>Fecha Realización</th>
+                </tr>
+              </thead>
+        
+              <tr *ngFor="let plan of plans">
+
+    
+              </tr>
+            </table>
+          </div>  

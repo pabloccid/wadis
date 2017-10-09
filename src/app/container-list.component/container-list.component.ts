@@ -47,6 +47,14 @@ export class ListContainerComponent implements OnInit {
       (response) => {
         this.containers = response.data;
         this.last_page = response.last_page;
+        this.containers.forEach(function(element, index, object) {
+          if (element.latest_container_states.state_type !== 1) {
+            // object.splice(index, 1);
+          }else {
+            element.latest_container_states.states.value = +element.latest_container_states.states.value;
+            element.latest_container_states.states.value = +element.latest_container_states.states.value;
+          }
+        });
       });
     // this.profileService.getProfileAPI().subscribe(data => this.profiles = data);
 
@@ -68,9 +76,6 @@ export class ListContainerComponent implements OnInit {
   onSelect(container: Container): void {
     this.selectedContainer = container;
   }
-  gotoDetail(): void {
-    this.router.navigate(['/detail', this.selectedContainer.id]);
-  }
 
   public nextPage() {
     this.page ++;
@@ -81,5 +86,9 @@ export class ListContainerComponent implements OnInit {
   prevPage() {
     this.page --;
     this.getContainers();
+  }
+
+  gotoDetail(id: number): void {
+    this.router.navigate(['/containeredit', id]);
   }
 }
