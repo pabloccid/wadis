@@ -26,11 +26,11 @@ export class ProfileService {
     // }
     getProfileAPI(page: number): Observable<ProfileServiceResponse> {
         if (page === 1) {
-            return this.http.get(`https://api.wadis.com.ar/userprofiles`)
+            return this.http.get(`http://api.wadis.com.ar/userprofiles`)
             .map(response => response.json())
             .catch(this.handleError);
         } else {
-            return this.http.get(`https://api.wadis.com.ar/userprofiles?page=` + page)
+            return this.http.get(`http://api.wadis.com.ar/userprofiles?page=` + page)
             .map(response => response.json())
             .catch(this.handleError);
         }
@@ -44,14 +44,14 @@ export class ProfileService {
     create(name: string): Promise<Profile> {
     console.log(JSON.stringify({name: name}));
     return this.http
-        .post(`https://api.wadis.com.ar/userprofiles?name=` + name, JSON.stringify({name: name}))
+        .post(`http://api.wadis.com.ar/userprofiles?name=` + name, JSON.stringify({name: name}))
         .toPromise()
         .then(res => res.json().data as Profile)
         .catch(this.handleError);
     }
 
     getEveryProfile(): Observable<ProfileServiceResponse> {
-        return this.http.get(`https://api.wadis.com.ar/userprofiles?per_page=50`)
+        return this.http.get(`http://api.wadis.com.ar/userprofiles?per_page=50`)
             .map(response => response.json())
             .catch(this.handleError);
 

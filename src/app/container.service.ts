@@ -44,11 +44,11 @@ export class ContainerService {
     getContainerAPI(page: number): Observable<ContainerServiceResponse> {
 
         if (page === 1) {
-            return this.http.get(`https://api.wadis.com.ar/containers`)
+            return this.http.get(`http://api.wadis.com.ar/containers`)
             .map(response => response.json())
             .catch(this.handleError);
         } else {
-            return this.http.get(`https://api.wadis.com.ar/containers?page=` + page)
+            return this.http.get(`http://api.wadis.com.ar/containers?page=` + page)
             .map(response => response.json())
             .catch(this.handleError);
         }
@@ -56,7 +56,7 @@ export class ContainerService {
     }
 
     getContainersSimple() {
-        return this.http.get(`https://api.wadis.com.ar/containers?per_page=50`)
+        return this.http.get(`http://api.wadis.com.ar/containers?per_page=50`)
         .map(response => response.json());
     }
 
@@ -67,23 +67,23 @@ export class ContainerService {
     }
 
     getContainerEdit(id: number): Observable<Container> {
-        console.log('https://api.wadis.com.ar/containers/' + id);
-        return this.http.get(`https://api.wadis.com.ar/containers/` + id)
+        console.log('http://api.wadis.com.ar/containers/' + id);
+        return this.http.get(`http://api.wadis.com.ar/containers/` + id)
         .map(response => response.json().data)
         .catch(this.handleError);
 
     }
 
     getContainerHistory(id: number): Observable<States[]> {
-        console.log('https://api.wadis.com.ar/containers/' + id + '/containerstates');
-        return this.http.get('https://api.wadis.com.ar/containers/' + id + '/containerstates')
+        console.log('http://api.wadis.com.ar/containers/' + id + '/containerstates');
+        return this.http.get('http://api.wadis.com.ar/containers/' + id + '/containerstates')
         .map(response => response.json().data)
         .catch(this.handleError);
 
     }
     getContainerTasks(id: number): Observable<ContainerTask[]> {
-        console.log('https://api.wadis.com.ar/containers/' + id + '/containertasks');
-        return this.http.get('https://api.wadis.com.ar/containers/' + id + '/containertasks')
+        console.log('http://api.wadis.com.ar/containers/' + id + '/containertasks');
+        return this.http.get('http://api.wadis.com.ar/containers/' + id + '/containertasks')
         .map(response => response.json().data)
         .catch(this.handleError);
 
@@ -97,7 +97,7 @@ export class ContainerService {
         formData.append('year', year.toString());
         headers.append('Content-Type', 'application/json');
         return this.http
-        .post(`https://api.wadis.com.ar/planscalendar`, formData)
+        .post(`http://api.wadis.com.ar/planscalendar`, formData)
         .map(response => response.json().data)
         .catch(this.handleError);
 

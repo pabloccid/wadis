@@ -1,7 +1,8 @@
+import { ContainerService } from './../container.service';
 import { DatepickerOptions } from 'ng2-datepicker';
 import { PlanService } from './../plan.service';
 import { Component } from '@angular/core';
-import { Plan, PlanServiceResponse, States, ContainerTask } from '../container';
+import { Plan, PlanServiceResponse, States, ContainerTask, Container } from '../container';
 import { ZoneService } from '../zone.service';
 import { OnInit } from '@angular/core';
 import { Router, NavigationStart, ActivatedRoute, ParamMap } from '@angular/router';
@@ -37,12 +38,14 @@ export class EditPlanComponent implements OnInit {
   private timer: Observable<number>;
   public page: number;
   public last_page: number;
+  containersAssigned: Container[];
+  containers: Container[];
 //   states: States[];
 //   zones: Zone[];
 //   tasks: ContainerTask[];
 
 
-  constructor(private planService: PlanService, private zoneService: ZoneService,
+  constructor(private planService: PlanService, private zoneService: ZoneService, private containerService: ContainerService,
               private router: Router, private route: ActivatedRoute) {
     router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -71,66 +74,90 @@ export class EditPlanComponent implements OnInit {
     .switchMap((params: ParamMap) => this.planService.getPlanEdit(+params.get('id')))
     .subscribe(plan => {
                           this.plan = plan;
+                          this.getContainers();
                         //   this.getHistory();
                         //   this.getTasks();
-                        console.log(plan);
+                        // console.log(plan);
                         });
+
   }
   ngOnInit(): void {
     this.getPlan();
     console.log(this.plan);
-    // this.getHistory();
-    // this.getEveryZone();
-    // this.timer
-    //       .takeWhile(() => this.alive)
-    //       .subscribe(() => {
-    //         this.zoneService.getEveryZone().subscribe(
-    //           (response) => {
-    //             this.zones = response.data;
-    //           });
-    //       });
+
   }
 
-  // onSelect(plan: Plan): void {
-  //   this.selectedPlan = plan;
-  // }
 
   postEditPlan(name: Plan) {
     console.log(name);
 
   }
 
-//   getHistory(): void {
-//     this.planService.getPlanHistory(this.plan.id).subscribe(
-//     (response) => {
-//         this.states = response;
-//         console.log(this.states);
-//         // this.plans.splice(0, 1);
-//     });
-//     // this.profileService.getProfileAPI().subscribe(data => this.profiles = data);
 
-//   }
-//   getTasks(): void {
-//     this.planService.getPlanTasks(this.plan.id).subscribe(
-//     (response) => {
-//         this.tasks = response;
-//         console.log(this.tasks);
-//         // this.plans.splice(0, 1);
-//     });
-//     // this.profileService.getProfileAPI().subscribe(data => this.profiles = data);
 
-//   }
 
-//   getEveryZone(): void {
-//     this.zoneService.getEveryZone().subscribe(
-//     (response) => {
-//         this.zones = response.data;
-//         // this.zones.splice(0, 1);
-//     });
-//     console.log(this.zones);
-//     // this.profileService.getProfileAPI().subscribe(data => this.profiles = data);
+  getContainers(): void {
+    this.containerService.getContainersSimple().subscribe(
+      (response) => {
+          this.containers = response.data;
+          this.getContainersPlan(this.plan.id);
+          // console.log(this.containers);
+          // this.zones.splice(0, 1);
+      });
+      // this.profileService.getProfileAPI().subscribe(data => this.profiles = data);  }
+  }
 
-//   }
+  getContainersPlan(id: number): void {
+    this.planService.getContainersPlan(id).subscribe(
+    (response) => {
+        this.containersAssigned = response;
+        this.containersAssigned.sort((a, b) => a.id - b.id);
+        let index: number;
+        this.containersAssigned.forEach(element => {
+          index = this.containers.findIndex(x => x.id === element.id);
+          // console.log(index);
+          if (index >= 0) {
+            this.containers.splice(index, 1);
+          }
+          // console.log(this.containers);
+        });
+
+        // this.zones.splice(0, 1);
+    });
+    // console.log(this.containersAssigned);
+    // this.profileService.getProfileAPI().subscribe(data => this.profiles = data);
+
+  }
+
+  public assign(id_plan: number, id_container: number) {
+    this.planService.assignContainerPlan(id_plan, id_container);
+    let container: Container;
+    let index: number;
+    index = this.containers.findIndex(x => x.id === id_container);
+    container = this.containers[index];
+    // console.log(container);
+    this.containers.splice(index, 1);
+    this.containersAssigned.push(container);
+    this.containersAssigned.sort((a, b) => a.id - b.id);
+  }
+
+  public unassign(id_plan: number, id_container: number) {
+    // this.planService.assignContainerPlan(id_plan, id_container);
+    let container: Container;
+    let index: number;
+    index = this.containersAssigned.findIndex(x => x.id === id_container);
+    container = this.containersAssigned[index];
+    // console.log(container);
+    this.containersAssigned.splice(index, 1);
+    this.containers.push(container);
+    this.containers.sort((a, b) => a.id - b.id);
+  }
+
+
 
 
 }
+
+// function findID(container) {
+//   return container.id =
+// }

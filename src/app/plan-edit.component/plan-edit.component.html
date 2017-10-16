@@ -1,5 +1,5 @@
 <h2>
-	Nuevo Plan
+	Editar Plan
 </h2>
 	<hr>
 <div class="container" *ngIf="plan">
@@ -62,7 +62,59 @@
 																												dateend.value);">Guardar</button>
 			</div>      
 		</div>   	
-    </div>
+		</div>
+		<h2>Contenedores Asignados</h2>
+		<div class="container">
+			<table class="table">
+				<thead class="thead-inverse">
+					<tr>
+						<th>ID</th>
+						<th>Zone</th>
+						<th>Type</th>
+						<th>Location</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+	
+				<tr *ngFor="let container of containersAssigned">
+						<td>{{container.id}}</td>
+						<td>{{container.zone?.name}}</td>
+						<td >
+							<div class="btn btn-primary" *ngIf="container.green===0">Común</div>
+							<div class="btn btn-success" *ngIf="container.green===1">Reciclaje</div>
+						</td>
+						<td>
+							<div class="btn btn-success" *ngIf="container.latest_location">{{container.latest_location.geo_x}}, {{container.latest_location.geo_y}}</div>
 
+						<td><button type="button" class="btn btn-primary" (click)="unassign(plan.id, container.id)">Desasignar</button></td>
+				</tr>
+			</table>		
+
+		<h2>Contenedores Sin Asignar</h2>
+		<div class="container">
+			<table class="table">
+				<thead class="thead-inverse">
+					<tr>
+						<th>ID</th>
+						<th>Zone</th>
+						<th>Type</th>
+						<th>Location</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+	
+				<tr *ngFor="let container of containers">
+						<td>{{container.id}}</td>
+						<td>{{container.zone?.name}}</td>
+						<td >
+							<div class="btn btn-primary" *ngIf="container.green===0">Común</div>
+							<div class="btn btn-success" *ngIf="container.green===1">Reciclaje</div>
+						</td>
+						<td>
+							<div class="btn btn-success" *ngIf="container.latest_location">{{container.latest_location.geo_x}}, {{container.latest_location.geo_y}}</div>
+
+						<td><button type="button" class="btn btn-primary" (click)="assign(plan.id, container.id)">Asignar</button></td>
+				</tr>
+			</table>
 	<!-- <p>{{ f | json}}</p> -->
 </div>

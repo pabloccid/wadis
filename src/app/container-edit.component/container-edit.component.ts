@@ -1,6 +1,6 @@
 import { ContainerService } from './../container.service';
 import { Component } from '@angular/core';
-import { Container, ContainerServiceResponse, States, ContainerTask } from '../container';
+import { Container, ContainerServiceResponse, States, ContainerTask, Plan } from '../container';
 import { ZoneService } from '../zone.service';
 import { OnInit } from '@angular/core';
 import { Router, NavigationStart, ActivatedRoute, ParamMap } from '@angular/router';
@@ -33,6 +33,7 @@ export class EditContainerComponent implements OnInit {
   states: States[];
   zones: Zone[];
   tasks: ContainerTask[];
+  plans: Plan[];
 
 
   constructor(private containerService: ContainerService, private zoneService: ZoneService,

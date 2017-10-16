@@ -59,6 +59,7 @@ export class TaskType {
 }
 
 export class Plan {
+  id: number;
   description: string;
   date_start: Date;
   date_end: Date;

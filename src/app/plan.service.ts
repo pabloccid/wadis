@@ -22,11 +22,11 @@ export class PlanService {
 
     getPlans(page: number): Observable<PlanServiceResponse> {
         if (page === 1) {
-            return this.http.get(`https://api.wadis.com.ar/plans`)
+            return this.http.get(`http://api.wadis.com.ar/plans`)
             .map(response => response.json())
             .catch(this.handleError);
         } else {
-            return this.http.get(`https://api.wadis.com.ar/plans?page=` + page)
+            return this.http.get(`http://api.wadis.com.ar/plans?page=` + page)
             .map(response => response.json())
             .catch(this.handleError);
         }
@@ -38,9 +38,9 @@ export class PlanService {
         frecuency_type_id: number,
         date_start: string,
         date_end: string): Promise<Plan> {
-
+      if (date_end != null && date_end !== '') {
       return this.http
-          .post('https://api.wadis.com.ar/plans?description=' + description +
+          .post('http://api.wadis.com.ar/plans?description=' + description +
                                          '&task_id=' + task_id +
                                           '&frecuency=' + frecuency +
                                              '&frecuency_type_id=' + frecuency_type_id +
@@ -50,14 +50,43 @@ export class PlanService {
           .toPromise()
           .then(res => res.json().data as Plan)
           .catch(this.handleError);
+      }else {
+        return this.http
+        .post('http://api.wadis.com.ar/plans?description=' + description +
+                                       '&task_id=' + task_id +
+                                        '&frecuency=' + frecuency +
+                                           '&frecuency_type_id=' + frecuency_type_id +
+                                        '&date_start=' + date_start,
+                                 JSON.stringify({name: name}))
+        .toPromise()
+        .then(res => res.json().data as Plan)
+        .catch(this.handleError);
+      }
     }
 
     getPlanEdit(id: number): Observable<Plan> {
-    console.log('https://api.wadis.com.ar/plans/' + id);
-    return this.http.get(`https://api.wadis.com.ar/plans/` + id)
+    console.log('http://api.wadis.com.ar/plans/' + id);
+    return this.http.get(`http://api.wadis.com.ar/plans/` + id)
     .map(response => response.json().data)
     .catch(this.handleError);
 
+    }
+
+    getContainersPlan(id: number): Observable<Container[]> {
+
+        return this.http.get('http://api.wadis.com.ar/plans/' + id + '/containerplans/')
+        .map(response => response.json().data)
+        .catch(this.handleError);
+    }
+
+    assignContainerPlan(id_plan: number, id_container: number) {
+
+        return this.http
+        .post('http://api.wadis.com.ar/containers/' + id_container + '/plans/' + id_plan,
+                                 JSON.stringify({name: name}))
+        .toPromise()
+        .then(res => res.json().data as Plan)
+        .catch(this.handleError);
     }
 
 }

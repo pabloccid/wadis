@@ -26,7 +26,7 @@ export class ZoneService {
                 .then(zones => zones.find(zone => zone.id === id));
     }
     // getZoneAPI(): Promise<Zone[]> {
-    //     return this.http.get(`https://api.wadis.com.ar/zones`)
+    //     return this.http.get(`http://api.wadis.com.ar/zones`)
     //     .toPromise()
     //     .then(response => response.json().data as Zone[])
     //     .catch(this.handleError);
@@ -38,33 +38,33 @@ export class ZoneService {
     create(name: string): Promise<Zone> {
         console.log(JSON.stringify({name: name}));
         return this.http
-            .post(`https://api.wadis.com.ar/zones?name=` + name, JSON.stringify({name: name}))
+            .post(`http://api.wadis.com.ar/zones?name=` + name, JSON.stringify({name: name}))
             .toPromise()
             .then(res => res.json().data as Zone)
             .catch(this.handleError);
     }
     getZoneAPI(page: number): Observable<ZoneServiceResponse> {
         if (page === 1) {
-            return this.http.get(`https://api.wadis.com.ar/zones`)
+            return this.http.get(`http://api.wadis.com.ar/zones`)
             .map(response => response.json())
             .catch(this.handleError);
         } else {
-            return this.http.get(`https://api.wadis.com.ar/zones?page=` + page)
+            return this.http.get(`http://api.wadis.com.ar/zones?page=` + page)
             .map(response => response.json())
             .catch(this.handleError);
         }
 
     }
     getZoneEdit(id: number): Observable<Zone> {
-            console.log('https://api.wadis.com.ar/zones/' + id);
-            return this.http.get(`https://api.wadis.com.ar/zones/` + id)
+            console.log('http://api.wadis.com.ar/zones/' + id);
+            return this.http.get(`http://api.wadis.com.ar/zones/` + id)
             .map(response => response.json().data)
             .catch(this.handleError);
 
     }
 
     getEveryZone(): Observable<ZoneServiceResponse> {
-        return this.http.get(`https://api.wadis.com.ar/zones?per_page=50`)
+        return this.http.get(`http://api.wadis.com.ar/zones?per_page=50`)
             .map(response => response.json())
             .catch(this.handleError);
 

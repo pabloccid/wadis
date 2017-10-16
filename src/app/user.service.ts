@@ -27,7 +27,7 @@ export class UserService {
     //             .then(users => users.find(user => user.id === id));
     // }
     // getUserAPI(): Promise<User[]> {
-    //     return this.http.get(`https://api.wadis.com.ar/users`)
+    //     return this.http.get(`http://api.wadis.com.ar/users`)
     //     .toPromise()
     //     .then(response => response.json().data as User[])
     //     .catch(this.handleError);
@@ -52,7 +52,7 @@ export class UserService {
     }
     console.log(zone);
     return this.http
-        .post('https://api.wadis.com.ar/users?name=' + name +
+        .post('http://api.wadis.com.ar/users?name=' + name +
                                        '&last_name=' + lastname +
                                         '&username=' + numdoc +
                                            '&email=' + usuariomail +
@@ -69,11 +69,11 @@ export class UserService {
     }
     getUserAPI(page: number): Observable<UserServiceResponse> {
         if (page === 1) {
-            return this.http.get(`https://api.wadis.com.ar/users`)
+            return this.http.get(`http://api.wadis.com.ar/users`)
             .map(response => response.json())
             .catch(this.handleError);
         } else {
-            return this.http.get(`https://api.wadis.com.ar/users?page=` + page)
+            return this.http.get(`http://api.wadis.com.ar/users?page=` + page)
             .map(response => response.json())
             .catch(this.handleError);
         }
