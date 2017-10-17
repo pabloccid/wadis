@@ -35,7 +35,7 @@ export class ListContainerComponent implements OnInit {
     router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.getContainers();
-        console.log('get');
+        // console.log('get');
       }
     });
     this.timer = Observable.timer(0, 1000);
@@ -47,7 +47,12 @@ export class ListContainerComponent implements OnInit {
       (response) => {
         this.containers = response.data;
         this.last_page = response.last_page;
+        let this2 = this;
         this.containers.forEach(function(element, index, object) {
+          // console.log(this);
+          // if (element.latest_location.address === '6') {
+            this2.getContainerAddress(element);
+          // }
           if (element.latest_container_states.state_type !== 1) {
             // object.splice(index, 1);
           }else {
@@ -91,4 +96,13 @@ export class ListContainerComponent implements OnInit {
   gotoDetail(id: number): void {
     this.router.navigate(['/containeredit', id]);
   }
+
+  getContainerAddress(container) {
+    let address;
+     this.containerService.toAddress(container)
+    .subscribe(result => {container.latest_location.address = result; });
+  }
+
 }
+
+

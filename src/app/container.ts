@@ -1,5 +1,6 @@
 import { Profile } from './profile';
 import { Zone } from './zone';
+import { Http } from '@angular/http';
 
 export class Container {
   id: number;
@@ -10,6 +11,9 @@ export class Container {
   coord_y: number;
   latest_container_states: States;
   latest_location: Location;
+  
+
+
 }
 
 export class States {
@@ -32,6 +36,7 @@ export class Alert {
 export class Location {
 geo_x: number;
 geo_y: number;
+address?: string;
 
 }
 

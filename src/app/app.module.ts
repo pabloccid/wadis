@@ -37,6 +37,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 
 import { CalendarModule } from 'angular-calendar';
 import { NgDatepickerModule } from 'ng2-datepicker';
+import { ToAddressPipe } from './to-address.pipe';
 
 @NgModule({
   imports: [
@@ -70,7 +71,8 @@ import { NgDatepickerModule } from 'ng2-datepicker';
     CalendarComponent,
     ListPlanComponent,
     NewPlanComponent,
-    EditPlanComponent
+    EditPlanComponent,
+    ToAddressPipe
   ],
   providers: [ HeroService, ContainerService, ZoneService, ProfileService, UserService, PlanService ],
   bootstrap: [ AppComponent ]

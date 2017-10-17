@@ -38,8 +38,8 @@ export class EditPlanComponent implements OnInit {
   private timer: Observable<number>;
   public page: number;
   public last_page: number;
-  containersAssigned: Container[];
-  containers: Container[];
+  containersAssigned: Container[] = [];
+  containers: Container[] = [];
 //   states: States[];
 //   zones: Zone[];
 //   tasks: ContainerTask[];
@@ -100,7 +100,15 @@ export class EditPlanComponent implements OnInit {
     this.containerService.getContainersSimple().subscribe(
       (response) => {
           this.containers = response.data;
+
           this.getContainersPlan(this.plan.id);
+          let this2 = this;
+          this.containers.forEach(function(element, index, object) {
+            // console.log(element.latest_location.address);
+            if (element.latest_location.address === undefined) {
+              this2.getContainerAddress(element);
+            }
+          });
           // console.log(this.containers);
           // this.zones.splice(0, 1);
       });
@@ -113,7 +121,11 @@ export class EditPlanComponent implements OnInit {
         this.containersAssigned = response;
         this.containersAssigned.sort((a, b) => a.id - b.id);
         let index: number;
+        let this2 = this;
         this.containersAssigned.forEach(element => {
+          if (element.latest_location.address === undefined) {
+            this2.getContainerAddress(element);
+          }
           index = this.containers.findIndex(x => x.id === element.id);
           // console.log(index);
           if (index >= 0) {
@@ -154,7 +166,11 @@ export class EditPlanComponent implements OnInit {
   }
 
 
-
+  getContainerAddress(container) {
+    let address;
+     this.containerService.toAddress(container)
+    .subscribe(result => {container.latest_location.address = result; });
+  }
 
 }
 

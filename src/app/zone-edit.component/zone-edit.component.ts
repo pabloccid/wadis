@@ -38,14 +38,14 @@ export class EditZoneComponent implements OnInit {
     router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.getZone();
-        console.log('get');
+        // console.log('get');
       }
     });
     this.timer = Observable.timer(0, 1000);
     router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.getContainers();
-        console.log('get');
+        // console.log('get');
       }
     });
     this.timer = Observable.timer(0, 1000);        this.router = router;
@@ -67,7 +67,7 @@ export class EditZoneComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getZone();
-    console.log(this.zone);
+    // console.log(this.zone);
     // this.getContainers();
   }
 
@@ -76,7 +76,7 @@ export class EditZoneComponent implements OnInit {
   // }
 
   postEditZone(name: Zone) {
-    console.log(name);
+    // console.log(name);
 
   }
 
@@ -84,11 +84,23 @@ export class EditZoneComponent implements OnInit {
     this.containerService.getContainersByZone(this.zone.id).subscribe(
     (response) => {
         this.containers = response.data;
-        console.log(this.containers);
+        let this2 = this;
+        this.containers.forEach(function(element, index, object) {
+          // console.log(element.latest_location.address);
+          if (element.latest_location.address === undefined) {
+            this2.getContainerAddress(element);
+          }
+        });
         // this.zones.splice(0, 1);
     });
     // this.profileService.getProfileAPI().subscribe(data => this.profiles = data);
 
+  }
+
+  getContainerAddress(container) {
+    let address;
+     this.containerService.toAddress(container)
+    .subscribe(result => {container.latest_location.address = result; });
   }
 
 

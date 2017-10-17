@@ -102,4 +102,12 @@ export class ContainerService {
         .catch(this.handleError);
 
     }
+
+    toAddress(container){
+        let url = 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAXvGpoiIyFYJzErisMD_7MI-Orvobkx3g&latlng=';
+        let address;
+        return this.http.get(url + container.latest_location.geo_x + ',' + container.latest_location.geo_y)
+        .map(result => result.json().results[0].formatted_address);
+        
+    }
 }

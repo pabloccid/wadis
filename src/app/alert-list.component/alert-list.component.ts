@@ -35,7 +35,7 @@ export class ListAlertComponent implements OnInit {
     router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.getProfiles();
-        console.log('get');
+        // console.log('get');
       }
     });
     this.timer = Observable.timer(0, 1000);
@@ -45,6 +45,12 @@ export class ListAlertComponent implements OnInit {
       (response) => {
         this.containers = response.data;
         this.last_page = response.last_page;
+        let this2 = this;
+        this.containers.forEach(function(element, index, object) {
+          if (element.latest_location.address === undefined) {
+            this2.getContainerAddress(element);
+          }
+        });
       });
     // this.profileService.getProfileAPI().subscribe(data => this.profiles = data);
 
@@ -58,6 +64,12 @@ export class ListAlertComponent implements OnInit {
             this.containerService.getContainerAPI(this.page).subscribe(
               (response) => {
                 this.containers = response.data;
+                let this2 = this;
+                this.containers.forEach(function(element, index, object) {
+                  if (element.latest_location.address === undefined) {
+                    this2.getContainerAddress(element);
+                  }
+                });
                 this.last_page = response.last_page;
               });
           });
@@ -73,11 +85,17 @@ export class ListAlertComponent implements OnInit {
   public nextPage() {
     this.page ++;
     this.getProfiles();
-    console.log('Paso pagina: ' + this.last_page);
+    // console.log('Paso pagina: ' + this.last_page);
   }
 
   prevPage() {
     this.page --;
     this.getProfiles();
+  }
+
+  getContainerAddress(container) {
+    let address;
+     this.containerService.toAddress(container)
+    .subscribe(result => {container.latest_location.address = result; });
   }
 }
