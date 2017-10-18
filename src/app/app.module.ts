@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AgmCoreModule } from '@agm/core';
-import { HttpModule } from '@angular/http';
+import { HttpModule, JsonpModule } from '@angular/http';
 
 import { AppComponent } from './app.component/app.component';
 import { DashboardComponent } from './dashboard.component/dashboard.component';
@@ -51,7 +51,8 @@ import { ToAddressPipe } from './to-address.pipe';
     }),
     BrowserModule,
     CalendarModule.forRoot(),
-    NgDatepickerModule
+    NgDatepickerModule,
+    JsonpModule
   ],
   declarations: [
     AppComponent,

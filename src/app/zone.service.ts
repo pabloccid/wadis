@@ -36,7 +36,7 @@ export class ZoneService {
     return Promise.reject(error.message || error);
     }
     create(name: string): Promise<Zone> {
-        console.log(JSON.stringify({name: name}));
+        // console.log(JSON.stringify({name: name}));
         return this.http
             .post(`http://api.wadis.com.ar/zones?name=` + name, JSON.stringify({name: name}))
             .toPromise()

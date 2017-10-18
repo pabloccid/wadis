@@ -88,9 +88,11 @@ export class EditContainerComponent implements OnInit {
   //   this.selectedContainer = container;
   // }
 
-  postEditContainer(name: Container) {
-    console.log(name);
-
+  postEditContainer(container: Container) {
+    this.containerService.updateContainer(container).subscribe(
+      (response) => {
+        console.log(response);
+      });
   }
 
   getHistory(): void {

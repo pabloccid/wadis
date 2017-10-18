@@ -4,12 +4,12 @@
 
         <tr>
             <td>Código</td>
-            <td><input [(ngModel)]="container.code" placeholder="code" /></td>
+            <td><input [(ngModel)]="container.code" class="form-control" placeholder="code" /></td>
         </tr>
         <tr>    
             <td>Tipo</td>
             <td>
-              <select  [(ngModel)]="container.green">
+              <select  [(ngModel)]="container.green" class="form-control">
                 <option value='0'>Común</option>
                 <option value='1'>Reciclaje</option>
               </select>
@@ -18,13 +18,13 @@
         <tr>    
             <td>Zona</td>
             <td>
-              <select id="zoneID" class="form-control" #zoneID>
-                <option *ngFor="let zone of zones" value="{{container.zone_id}}">{{zone.name}}</option>
+              <select id="zoneID" [(ngModel)]="container.zone_id" class="form-control" #zoneID>
+                <option *ngFor="let zone of zones" value='{{zone.id}}'>{{zone.name}}</option>
               </select>
             </td>
         </tr>
         <tr>
-            <td><button class="btn btn-primary" (click)="postEditZone(container);">Guardar</button></td>
+            <td><button class="btn btn-primary" (click)="postEditContainer(container);">Guardar</button></td>
 
             
         </tr>

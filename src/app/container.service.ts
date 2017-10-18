@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import 'rxjs/Rx';
-import {Headers} from '@angular/http';
+import {Headers, RequestOptions} from '@angular/http';
 import { Observable } from 'rxjs';
 
 import { Container, ContainerServiceResponse, States, ContainerTask, Plan } from './container';
@@ -9,6 +9,9 @@ import { Container, ContainerServiceResponse, States, ContainerTask, Plan } from
 
 @Injectable()
 export class ContainerService {
+
+    private url_base = 'http://api.wadis.com.ar/containers';
+
     constructor (
         private http: Http
     ) {}
@@ -44,11 +47,11 @@ export class ContainerService {
     getContainerAPI(page: number): Observable<ContainerServiceResponse> {
 
         if (page === 1) {
-            return this.http.get(`http://api.wadis.com.ar/containers`)
+            return this.http.get(this.url_base)
             .map(response => response.json())
             .catch(this.handleError);
         } else {
-            return this.http.get(`http://api.wadis.com.ar/containers?page=` + page)
+            return this.http.get(this.url_base + '?page=' + page)
             .map(response => response.json())
             .catch(this.handleError);
         }
@@ -56,7 +59,7 @@ export class ContainerService {
     }
 
     getContainersSimple() {
-        return this.http.get(`http://api.wadis.com.ar/containers?per_page=50`)
+        return this.http.get(this.url_base + '?per_page=50')
         .map(response => response.json());
     }
 
@@ -90,8 +93,10 @@ export class ContainerService {
     }
 
     getPlansCalendar(month: number, year: number): Observable<Plan[]> {
-        var headers = new Headers();
-        let formData: FormData = new FormData();
+        let headers;
+        headers = new Headers();
+        let formData: FormData;
+        formData = new FormData();
         console.log(month.toString() + '-' + year.toString());
         formData.append('month', month.toString());
         formData.append('year', year.toString());
@@ -103,11 +108,20 @@ export class ContainerService {
 
     }
 
-    toAddress(container){
-        let url = 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAXvGpoiIyFYJzErisMD_7MI-Orvobkx3g&latlng=';
-        let address;
+    toAddress(container) {
+        let url;
+        url = 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAXvGpoiIyFYJzErisMD_7MI-Orvobkx3g&latlng=';
         return this.http.get(url + container.latest_location.geo_x + ',' + container.latest_location.geo_y)
         .map(result => result.json().results[0].formatted_address);
-        
+    }
+
+    updateContainer(container) {
+        let headers = new Headers({ 'Content-Type': 'application/json',
+        'Accept': 'q=0.8;application/json;q=0.9' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.patch(this.url_base + '/' + container.id,
+                        JSON.stringify({green: container.green, zone_id: container.zone_id, code: container.code}),
+                        options
+                    ).map(result => result.json());
     }
 }
