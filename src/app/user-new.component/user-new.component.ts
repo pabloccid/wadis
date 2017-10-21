@@ -11,6 +11,7 @@ import { PipeTransform, Pipe } from '@angular/core';
 import { Http } from '@angular/http';
 import { ZoneService } from '../zone.service';
 import { Profile } from "../profile";
+import {AuthenticationService} from '../authentication.service';
 
 
 
@@ -34,7 +35,7 @@ export class NewUserComponent implements OnInit {
   public last_page: number;
 
     constructor(private userService: UserService, private zoneService: ZoneService,
-                private profileService: ProfileService, private router: Router) {
+                private profileService: ProfileService, private router: Router, private _service: AuthenticationService) {
         router.events.subscribe((event) => {
             if (event instanceof NavigationStart) {
               this.getEveryZone();
@@ -78,6 +79,7 @@ export class NewUserComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this._service.checkCredentials();
         this.page = 1;
         this.getEveryZone();
         this.timer

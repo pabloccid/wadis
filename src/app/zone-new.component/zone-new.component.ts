@@ -6,6 +6,7 @@ import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PipeTransform, Pipe } from '@angular/core';
 import { Http } from '@angular/http';
+import {AuthenticationService} from '../authentication.service';
 
 
 @Component({
@@ -16,13 +17,17 @@ import { Http } from '@angular/http';
 })
 
 
-export class NewZoneComponent {
+export class NewZoneComponent implements OnInit {
 
   data: Zone;
 
-  constructor(private zoneService: ZoneService, private router: Router) {
+  constructor(private zoneService: ZoneService, private router: Router, private _service: AuthenticationService) {
 
     this.router = router;
+   }
+
+   ngOnInit(): void {
+    this._service.checkCredentials();
    }
 
   add(name: string): void {

@@ -13,6 +13,7 @@ import { Http } from '@angular/http';
 import { ZoneService } from '../zone.service';
 import { Profile } from '../profile';
 import { DatepickerOptions } from 'ng2-datepicker';
+import {AuthenticationService} from '../authentication.service';
 
 
 
@@ -45,7 +46,8 @@ export class NewPlanComponent implements OnInit {
   public date_end: Date;
 
     constructor(private planService: PlanService, private zoneService: ZoneService,
-                private profileService: ProfileService, private router: Router, public datepipe: DatePipe) {
+                private profileService: ProfileService, private router: Router, 
+                public datepipe: DatePipe, private _service: AuthenticationService) {
         router.events.subscribe((event) => {
             if (event instanceof NavigationStart) {
               this.getEveryZone();
@@ -89,6 +91,7 @@ export class NewPlanComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this._service.checkCredentials();
         this.page = 1;
         this.getEveryZone();
         this.timer

@@ -22,7 +22,8 @@ import { EditZoneComponent } from './zone-edit.component/zone-edit.component';
 import { EditContainerComponent } from './container-edit.component/container-edit.component';
 import { ListPlanComponent } from './plan-list.component/plan-list.component';
 import { NewPlanComponent } from './plan-new.component/plan-new.component';
-
+import { LoginComponent } from './login.component/login.component';
+import { GlobalEventsManager } from './GlobalEventsManager';
 
 import { HeroService } from './hero.service';
 import { ContainerService } from './container.service';
@@ -30,6 +31,7 @@ import { ZoneService } from './zone.service';
 import { ProfileService } from './profile.service';
 import { UserService } from './user.service';
 import { PlanService } from './plan.service';
+import { AuthenticationService } from './authentication.service';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -73,9 +75,10 @@ import { ToAddressPipe } from './to-address.pipe';
     ListPlanComponent,
     NewPlanComponent,
     EditPlanComponent,
-    ToAddressPipe
+    ToAddressPipe,
+    LoginComponent
   ],
-  providers: [ HeroService, ContainerService, ZoneService, ProfileService, UserService, PlanService ],
+  providers: [ HeroService, ContainerService, ZoneService, ProfileService, UserService, PlanService, AuthenticationService, GlobalEventsManager ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -6,6 +6,7 @@ import { Router, NavigationStart } from '@angular/router';
 import { PipeTransform, Pipe } from '@angular/core';
 import { Observable } from "rxjs";
 import { IntervalObservable } from "rxjs/observable/IntervalObservable";
+import {AuthenticationService} from '../authentication.service';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class ListZoneComponent implements OnInit {
   public page: number;
   public last_page: number;
 
-  constructor(private zoneService: ZoneService, private router: Router) {
+  constructor(private zoneService: ZoneService, private router: Router, private _service: AuthenticationService) {
     router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.getZones();
@@ -51,6 +52,7 @@ export class ListZoneComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this._service.checkCredentials();
     this.page = 1;
     this.getZones();
     this.timer

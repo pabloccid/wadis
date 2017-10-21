@@ -5,6 +5,7 @@ import { ContainerService } from '../container.service';
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Zone } from '../zone';
+import {AuthenticationService} from '../authentication.service';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class ContainerMapComponent implements OnInit {
   containers: Container[];
   zones: Zone[] = new Array<Zone>();
 
-  constructor(private containerService: ContainerService, private zoneService: ZoneService, private router: Router) { }
+  constructor(private containerService: ContainerService,
+    private zoneService: ZoneService, private router: Router, private _service: AuthenticationService) { }
   getContainers(): void {
     this.containerService.getContainersSimple().subscribe(
       (response) => {
@@ -40,6 +42,7 @@ export class ContainerMapComponent implements OnInit {
       });
   }
   ngOnInit(): void {
+    this._service.checkCredentials();
 
     this.getContainers();
     this.getEveryZone();

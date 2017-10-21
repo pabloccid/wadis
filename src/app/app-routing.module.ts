@@ -1,3 +1,4 @@
+import { LoginComponent } from './login.component/login.component';
 import { EditPlanComponent } from './plan-edit.component/plan-edit.component';
 import { NewPlanComponent } from './plan-new.component/plan-new.component';
 import { CalendarComponent } from './calendar.component/calendar.component';
@@ -21,6 +22,7 @@ import { ListPlanComponent } from './plan-list.component/plan-list.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
   { path: 'dashboard',  component: DashboardComponent },
   { path: 'containerlist',     component: ListContainerComponent },
   { path: 'containermap',     component: ContainerMapComponent },

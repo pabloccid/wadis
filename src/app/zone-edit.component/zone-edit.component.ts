@@ -7,7 +7,8 @@ import { Router, NavigationStart, ActivatedRoute, ParamMap } from '@angular/rout
 import { PipeTransform, Pipe } from '@angular/core';
 import { Observable } from "rxjs";
 import { IntervalObservable } from "rxjs/observable/IntervalObservable";
-import { Container } from "../container";
+import { Container } from '../container';
+import {AuthenticationService} from '../authentication.service';
 
 @Component({
   selector: 'app-zone-edit',
@@ -34,7 +35,7 @@ export class EditZoneComponent implements OnInit {
 
 
   constructor(private zoneService: ZoneService, private containerService: ContainerService,
-              private router: Router, private route: ActivatedRoute) {
+              private router: Router, private route: ActivatedRoute, private _service: AuthenticationService) {
     router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.getZone();
@@ -66,6 +67,7 @@ export class EditZoneComponent implements OnInit {
                         });
   }
   ngOnInit(): void {
+    this._service.checkCredentials();
     this.getZone();
     // console.log(this.zone);
     // this.getContainers();

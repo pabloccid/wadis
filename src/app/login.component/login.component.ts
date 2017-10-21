@@ -1,42 +1,53 @@
-// import { Component, OnInit } from '@angular/core';
-// import { Router, ActivatedRoute } from '@angular/router';
+import {Component, ElementRef} from '@angular/core';
+import {AuthenticationService, UserAuth} from '../authentication.service';
 
-// import { AlertService, AuthenticationService } from '../_services/index';
 
-// @Component({
-//     moduleId: module.id,
-//     templateUrl: 'login.component.html'
-// })
+@Component({
+    selector: 'app-login-form',
+    providers: [AuthenticationService],
+    template: `
+        <div class="container" >
+            <div class="title">
+                Welcome
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input [(ngModel)]="user.username" id="username"
+                            type="email" class="validate">
+                        <label for="email">Usuario</label>
+                    </div>
+                </div>
 
-// export class LoginComponent implements OnInit {
-//     model: any = {};
-//     loading = false;
-//     returnUrl: string;
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input [(ngModel)]="user.password" id="password"
+                            type="password" class="validate">
+                        <label for="password">Password</label>
+                    </div>
+                </div>
 
-//     constructor(
-//         private route: ActivatedRoute,
-//         private router: Router,
-//         private authenticationService: AuthenticationService,
-//         private alertService: AlertService) { }
+                <span>{{errorMsg}}</span>
+                <button (click)="login()"
+                    class="btn waves-effect waves-light"
+                    type="submit" name="action">Login</button>
+            </div>
+        </div>
+    	`
+})
 
-//     ngOnInit() {
-//         // reset login status
-//         this.authenticationService.logout();
+export class LoginComponent {
 
-//         // get return url from route parameters or default to '/'
-//         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-//     }
+    public user = new UserAuth('', '');
+    public errorMsg = '';
 
-//     login() {
-//         this.loading = true;
-//         this.authenticationService.login(this.model.username, this.model.password)
-//             .subscribe(
-//                 data => {
-//                     this.router.navigate([this.returnUrl]);
-//                 },
-//                 error => {
-//                     this.alertService.error(error);
-//                     this.loading = false;
-//                 });
-//     }
-// }
+    constructor(
+        private _service: AuthenticationService) {}
+
+    login() {
+        if (!this._service.login(this.user)) {
+            this.errorMsg = 'Failed to login';
+        }
+
+    }
+}

@@ -10,6 +10,7 @@ import { PipeTransform, Pipe } from '@angular/core';
 import { Observable } from "rxjs";
 import { IntervalObservable } from "rxjs/observable/IntervalObservable";
 import { Zone } from '../zone';
+import {AuthenticationService} from '../authentication.service';
 
 @Component({
   selector: 'app-plan-edit',
@@ -46,7 +47,7 @@ export class EditPlanComponent implements OnInit {
 
 
   constructor(private planService: PlanService, private zoneService: ZoneService, private containerService: ContainerService,
-              private router: Router, private route: ActivatedRoute) {
+              private router: Router, private route: ActivatedRoute, private _service: AuthenticationService) {
     router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.getPlan();
@@ -82,6 +83,7 @@ export class EditPlanComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this._service.checkCredentials();
     this.getPlan();
     console.log(this.plan);
 

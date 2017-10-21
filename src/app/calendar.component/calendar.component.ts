@@ -17,6 +17,7 @@ import {
   isSameMonth,
   addHours
 } from 'date-fns';
+import {AuthenticationService} from '../authentication.service';
 
 const colors: any = {
   red: {
@@ -62,7 +63,7 @@ export class CalendarComponent implements OnInit {
   events: CalendarEvent[];
 
   constructor(private containerService: ContainerService,
-      private router: Router, private route: ActivatedRoute) {
+      private router: Router, private route: ActivatedRoute, private _service: AuthenticationService) {
     router.events.subscribe((event) => {
     if (event instanceof NavigationStart) {
     // this.plans = this.containerService.getPlansCalendar(this.viewDate.getMonth(), this.viewDate.getFullYear());
@@ -73,6 +74,7 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._service.checkCredentials();
     this.getTasks();
     // this.timer
     //       .takeWhile(() => this.alive)

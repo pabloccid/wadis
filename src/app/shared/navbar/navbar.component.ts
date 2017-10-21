@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthenticationService, UserAuth} from '../../authentication.service';
+import {GlobalEventsManager} from '../../GlobalEventsManager';
 
 @Component({
   selector: 'app-navbar',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
-  constructor() { }
+  showNavBar = false;
+  constructor(private _service: AuthenticationService, private globalEventsManager: GlobalEventsManager) { }
 
   ngOnInit() {
+    this.globalEventsManager.showNavBarEmitter.subscribe((mode) => {
+
+      this.showNavBar = mode;
+  });
+    this._service.checkCredentials();
   }
 
 }

@@ -6,6 +6,7 @@ import { Router, NavigationStart } from '@angular/router';
 import { PipeTransform, Pipe } from '@angular/core';
 import { Observable } from "rxjs";
 import { IntervalObservable } from "rxjs/observable/IntervalObservable";
+import {AuthenticationService} from '../authentication.service';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class ListAlertComponent implements OnInit {
   public page: number;
   public last_page: number;
 
-  constructor(private containerService: ContainerService, private router: Router) {
+  constructor(private containerService: ContainerService, private router: Router, private _service: AuthenticationService) {
     router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.getProfiles();
@@ -56,6 +57,7 @@ export class ListAlertComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this._service.checkCredentials();
     this.page = 1;
     this.getProfiles();
     this.timer
