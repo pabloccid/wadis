@@ -1,6 +1,6 @@
 import { ZoneService } from './../zone.service';
 import { Component } from '@angular/core';
-import { Container, Location } from '../container';
+import { Container, Location, Marker } from '../container';
 import { ContainerService } from '../container.service';
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -14,11 +14,13 @@ import {AuthenticationService} from '../authentication.service';
   templateUrl: 'container-map.component.html',
   providers: [ContainerService]
 })
+
+
 export class ContainerMapComponent implements OnInit {
   lat = -34.614133;
   lng = -58.438936;
   zoom = 12;
-  containers: Container[];
+  containers: Marker[] = [];
   zones: Zone[] = new Array<Zone>();
 
   constructor(private containerService: ContainerService,
@@ -26,10 +28,10 @@ export class ContainerMapComponent implements OnInit {
   getContainers(): void {
     this.containerService.getContainersSimple().subscribe(
       (response) => {
-        this.containers = response.data;
-        this.containers.forEach(function(element, index, object) {
-
-
+        let this2 = this;
+        response.data.forEach(function(element, index, object) {
+          let marker: Marker = new Marker;
+          element.icon = 'mr.png';
           if (!element.latest_location) {
             // object.splice(index, 1);
           }else {
@@ -37,8 +39,19 @@ export class ContainerMapComponent implements OnInit {
             element.latest_location.geo_y = +element.latest_location.geo_y;
 
           }
+          marker.container = element;
+          if (
+            (element.latest_container_states.state_type === 1 && element.latest_container_states.states.value >= 75)
+          || ((element.latest_container_states.state_type === 3 &&
+            (element.latest_container_states.states.alert_type.id === 2 || element.latest_container_states.states.alert_type.id === 3))
+          )) {
+            marker.icon = '/assets/images/mr.png';
+          }else {
+            marker.icon = '/assets/images/mg.png';
+          }
+          this2.containers.push(marker);
         });
-        // console.log(this.containers);
+        console.log(this.containers);
       });
   }
   ngOnInit(): void {
@@ -48,7 +61,7 @@ export class ContainerMapComponent implements OnInit {
     this.getEveryZone();
   }
   clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`)
+    console.log(`clicked the marker: ${label || index}`);
   }
 
   getEveryZone(): void {

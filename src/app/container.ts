@@ -11,9 +11,11 @@ export class Container {
   coord_y: number;
   latest_container_states: States;
   latest_location: Location;
-  
+}
 
-
+export class Marker {
+  container: Container;
+  icon: string;
 }
 
 export class States {

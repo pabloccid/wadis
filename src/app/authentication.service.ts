@@ -1,6 +1,8 @@
+import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import {Router} from '@angular/router';
 import {GlobalEventsManager} from './GlobalEventsManager';
+import { Http, Response } from '@angular/http';
 
 export class UserAuth {
   constructor(
@@ -8,17 +10,13 @@ export class UserAuth {
     public password: string) { }
 }
 
-let users;
-users = [
-  new UserAuth('admin@admin.com', 'adm9'),
-  new UserAuth('user1@gmail.com', 'a23')
-];
+
 
 @Injectable()
 export class AuthenticationService {
 
   constructor(
-    private _router: Router, private globalEventsManager: GlobalEventsManager) {}
+    private _router: Router, private globalEventsManager: GlobalEventsManager, private http: Http) {}
 
   logout() {
     localStorage.removeItem('user');
@@ -27,15 +25,20 @@ export class AuthenticationService {
   }
 
   login(user) {
-    let authenticatedUser;
-    authenticatedUser = users.find(u => u.username === user.username);
-    if (authenticatedUser && authenticatedUser.password === user.password) {
-      localStorage.setItem('user', authenticatedUser);
-      this._router.navigateByUrl('/dashboard');
-      return true;
-    }
-    return false;
-
+    return this.http
+    .post('http://api.wadis.com.ar/login?email=' + user.username + '&password=' + user.password,
+                            JSON.stringify({name: name}))
+                            .map((res: Response) => {
+                              if (res.json().data) {
+                                localStorage.setItem('user', user.username);
+                                this._router.navigateByUrl('/dashboard');
+                                return true;
+                              }else {
+                                return false;
+                              }
+                            }).subscribe(
+                              (response) => {
+                              });
   }
 
    checkCredentials() {
@@ -49,5 +52,11 @@ export class AuthenticationService {
     }
 
   }
-}
 
+
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
+  }
+
+}

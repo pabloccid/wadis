@@ -5,28 +5,30 @@
         </select>
         
     <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-        <ng-container  *ngFor="let container of containers">
-      <agm-marker  *ngIf="zoneID.value == 0 || container?.zone_id == zoneID.value" 
+        <ng-container  *ngFor="let marker of containers">
+      <agm-marker  *ngIf="zoneID.value == 0 || marker?.container?.zone_id == zoneID.value" 
       (markerClick) = 'this.clickedMarker("hola", 1)'
-      [latitude]="container?.latest_location?.geo_x" 
-      [longitude]="container?.latest_location?.geo_y"
-      [label]="container?.zone_id.toString()"
-      [title]="container?.id.toString()"
+      [latitude]="marker?.container?.latest_location?.geo_x" 
+      [longitude]="marker?.container?.latest_location?.geo_y"
+      [label]="marker?.container?.zone_id.toString()"
+      [title]="marker?.container?.id.toString()"
+      [iconUrl]= "marker.icon"
+      [zIndex] = "marker.container.id"
       
       >
         <agm-info-window>
-          <strong>ID: {{container.id}}</strong><br>
-          <strong>Código: {{container.code}}</strong><br>
-          <strong *ngIf="container.green==0">Reciclable: No</strong>
-          <strong *ngIf="container.green==1">Reciclable: Si</strong><br>
-          <strong>MAC: {{container?.mac}}</strong><br>
-          <strong>Zona: {{container?.zone?.name}}</strong><br>
-          <strong *ngIf="container.latest_container_states.state_type==1 && container.latest_container_states.states.value<=25">Estado: {{container.latest_container_states.states.value}}%</strong>
-          <strong *ngIf="container.latest_container_states.state_type==1 && container.latest_container_states.states.value<75 && container.latest_container_states.states.value>25">Estado: {{container.latest_container_states.states.value}}%</strong>
-          <strong *ngIf="container.latest_container_states.state_type==1 && container.latest_container_states.states.value>=75">Estado: {{container.latest_container_states.states.value}}%</strong>
-          <strong *ngIf="container.latest_container_states.state_type==3 && container.latest_container_states.states.alert_type.name==='Nuevo'">Estado: {{container.latest_container_states.states.alert_type.name}}</strong>
-          <strong *ngIf="container.latest_container_states.state_type==3 && !(container.latest_container_states.states.alert_type.name==='Nuevo')">Estado: {{container.latest_container_states.states.alert_type.name}}</strong>
-          <strong *ngIf="container.latest_container_states.state_type==2">Estado: Nueva Ubicación</strong>          
+          <strong>ID: {{marker.container.id}}</strong><br>
+          <strong>Código: {{marker.container.code}}</strong><br>
+          <strong *ngIf="marker?.container.green==0">Reciclable: No</strong>
+          <strong *ngIf="marker.container.green==1">Reciclable: Si</strong><br>
+          <strong>MAC: {{marker.container?.mac}}</strong><br>
+          <strong>Zona: {{marker.container?.zone?.name}}</strong><br>
+          <strong *ngIf="marker?.container.latest_container_states.state_type==1 && marker?.container.latest_container_states.states.value<=25">Estado: {{marker.container.latest_container_states.states.value}}%</strong>
+          <strong *ngIf="marker?.container.latest_container_states.state_type==1 && marker?.container.latest_container_states.states.value<75 && marker?.container.latest_container_states.states.value>25">Estado: {{marker.container.latest_container_states.states.value}}%</strong>
+          <strong *ngIf="marker?.container.latest_container_states.state_type==1 && marker?.container.latest_container_states.states.value>=75">Estado: {{marker.container.latest_container_states.states.value}}%</strong>
+          <strong *ngIf="marker?.container.latest_container_states.state_type==3 && marker?.container.latest_container_states.states.alert_type.name==='Nuevo'">Estado: {{marker.container.latest_container_states.states.alert_type.name}}</strong>
+          <strong *ngIf="marker?.container.latest_container_states.state_type==3 && !(marker?.container.latest_container_states.states.alert_type.name==='Nuevo')">Estado: {{marker.container.latest_container_states.states.alert_type.name}}</strong>
+          <strong *ngIf="marker?.container.latest_container_states.state_type==2">Estado: Nueva Ubicación</strong>          
         </agm-info-window>  
       </agm-marker>
         </ng-container>

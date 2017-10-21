@@ -51,9 +51,9 @@ export class ListContainerComponent implements OnInit {
         let this2 = this;
         this.containers.forEach(function(element, index, object) {
           // console.log(this);
-          // if (element.latest_location.address === '6') {
+          if (element.latest_location.address === null) {
             this2.getContainerAddress(element);
-          // }
+          }
           if (element.latest_container_states.state_type !== 1) {
             // object.splice(index, 1);
           }else {

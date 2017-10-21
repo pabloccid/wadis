@@ -48,7 +48,7 @@ export class ListAlertComponent implements OnInit {
         this.last_page = response.last_page;
         let this2 = this;
         this.containers.forEach(function(element, index, object) {
-          if (element.latest_location.address === undefined) {
+          if (element.latest_location.address === null) {
             this2.getContainerAddress(element);
           }
         });
@@ -68,7 +68,7 @@ export class ListAlertComponent implements OnInit {
                 this.containers = response.data;
                 let this2 = this;
                 this.containers.forEach(function(element, index, object) {
-                  if (element.latest_location.address === undefined) {
+                  if (element.latest_location.address === null) {
                     this2.getContainerAddress(element);
                   }
                 });

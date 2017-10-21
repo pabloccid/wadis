@@ -47,7 +47,8 @@
                 <div class="btn btn-warning" *ngIf="state.state_type==1 && state.states.value<75 && state.states.value>25">{{state.states.value}}%</div>
                 <div class="btn btn-danger" *ngIf="state.state_type==1 && state.states.value>=75">{{state.states.value}}%</div>
                 <div class="btn btn-primary" *ngIf="state.state_type==3 && state.states.alert_type.name==='Nuevo'">{{state.states.alert_type.name}}</div>
-                <div class="btn btn-danger" *ngIf="state.state_type==3 && !(state.states.alert_type.name==='Nuevo')">{{state.states.alert_type.name}}</div>
+                <div class="btn btn-success" *ngIf="state.state_type==3 && (state.states.alert_type.name==='Sin Gases Peligrosos' || state.states.alert_type.name==='Levantado')">{{state.states.alert_type.name}}</div>
+                <div class="btn btn-danger" *ngIf="state.state_type==3 && !(state.states.alert_type.name==='Nuevo') && !(state.states.alert_type.name==='Sin Gases Peligrosos') && !(state.states.alert_type.name==='Levantado')">{{state.states.alert_type.name}}</div>
                 <div class="btn btn-primary" *ngIf="state.state_type==2">Nueva Ubicación</div>
               </td>  
               <td>
