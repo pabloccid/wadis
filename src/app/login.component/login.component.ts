@@ -6,32 +6,42 @@ import {AuthenticationService, UserAuth} from '../authentication.service';
     selector: 'app-login-form',
     providers: [AuthenticationService],
     template: `
-        <div class="container" >
-            <div class="title">
-                Welcome
+        <br>
+        <div class="container">
+        <div class="row justify-content-center">
+        <div class="col-md-4 col-sm-8 col-xs-12">
+            <div class="card">
+            <div class="card-header">
+              <h4>Ingreso al sistema Wadis</h4>
             </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input [(ngModel)]="user.username" id="username"
-                            type="email" class="validate">
-                        <label for="email">Usuario</label>
-                    </div>
-                </div>
+            <div class="card-block">
+              <div class="row">
+              <div class="input-field col s12">
+                  <label for="username">Email</label>
+                  <input [(ngModel)]="user.username" id="username"
+                      type="email" class="validate form-control">
+              </div>
+          </div>
 
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input [(ngModel)]="user.password" id="password"
-                            type="password" class="validate">
-                        <label for="password">Password</label>
-                    </div>
-                </div>
-
-                <span>{{errorMsg}}</span>
+          <div class="row">
+              <div class="input-field col s12">
+                  <label for="password">Password</label>
+                  <input [(ngModel)]="user.password" id="password"
+                      type="password" class="validate form-control">
+              </div>
+          </div>
+            <br>
+          <div class="row">
+            <div class="input-field col s12">
                 <button (click)="login()"
-                    class="btn waves-effect waves-light"
-                    type="submit" name="action">Login</button>
+                    class="btn btn-primary btn-lg"
+                    type="submit" name="action">Ingresar</button>
+                    <span>{{errorMsg}}</span>
+                    </div>
+                </div>
             </div>
+          </div>
+          </div></div>
         </div>
     	`
 })

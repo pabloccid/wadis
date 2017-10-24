@@ -34,11 +34,17 @@ export class AuthenticationService {
                                 this._router.navigateByUrl('/dashboard');
                                 return true;
                               }else {
+                                console.log('falso');
+                                alert('Incorrecto');
                                 return false;
                               }
                             }).subscribe(
                               (response) => {
-                              });
+                              },
+                              (err) => {
+                                alert('Email o password incorrecto');
+                                return false;
+                            });
   }
 
    checkCredentials() {
