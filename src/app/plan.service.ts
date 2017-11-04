@@ -89,4 +89,13 @@ export class PlanService {
         .catch(this.handleError);
     }
 
+    unassignContainerPlan(id_plan: number, id_container: number) {
+                return this.http
+                .delete('http://api.wadis.com.ar/containers/' + id_container + '/plans/' + id_plan,
+                                         JSON.stringify({name: name}))
+                .toPromise()
+                .then(res => res.json().data as Plan)
+                .catch(this.handleError);
+    }
+
 }

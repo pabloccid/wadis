@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptions } from '@angular/http';
 import 'rxjs/Rx';
 import {Headers} from '@angular/http';
 import { Observable } from 'rxjs';
@@ -78,4 +78,22 @@ export class UserService {
             .catch(this.handleError);
         }
     }
+
+    updateUser(user) {
+        let headers = new Headers({ 'Content-Type': 'application/json',
+        'Accept': 'q=0.8;application/json;q=0.9' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.patch('http://api.wadis.com.ar/users/' + user.id,
+                        JSON.stringify({green: user.green, zone_id: user.zone_id, code: user.code}),
+                        options
+                    ).map(result => result.json());
+    }
+
+    getUserEdit(id: number): Observable<User> {
+        console.log('http://api.wadis.com.ar/users/' + id);
+        return this.http.get(`http://api.wadis.com.ar/users/` + id)
+        .map(response => response.json().data)
+        .catch(this.handleError);
+    }
+
 }

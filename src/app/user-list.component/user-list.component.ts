@@ -69,8 +69,9 @@ export class ListUserComponent implements OnInit {
   onSelect(user: User): void {
     this.selectedUser = user;
   }
-  gotoDetail(): void {
-    this.router.navigate(['/detail', this.selectedUser.id]);
+
+  gotoDetail(id: number): void {
+    this.router.navigate(['/useredit', id]);
   }
 
   public nextPage() {

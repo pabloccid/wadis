@@ -75,6 +75,9 @@ export class EditPlanComponent implements OnInit {
     .switchMap((params: ParamMap) => this.planService.getPlanEdit(+params.get('id')))
     .subscribe(plan => {
                           this.plan = plan;
+                          if (this.plan.date_end === null) {
+                            // this.plan.date_end = new Date();
+                          }
                           this.getContainers();
                         //   this.getHistory();
                         //   this.getTasks();
@@ -156,7 +159,7 @@ export class EditPlanComponent implements OnInit {
   }
 
   public unassign(id_plan: number, id_container: number) {
-    // this.planService.assignContainerPlan(id_plan, id_container);
+    this.planService.unassignContainerPlan(id_plan, id_container);
     let container: Container;
     let index: number;
     index = this.containersAssigned.findIndex(x => x.id === id_container);

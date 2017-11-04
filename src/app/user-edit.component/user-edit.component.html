@@ -1,0 +1,84 @@
+<h2>
+	Editar Usuario
+</h2>
+	<hr>
+<div class="container" *ngIf='user'>
+  	<div class="form-group row">
+      <label for="usuario-nombre" class="col-sm-2 col-form-label">Nombre</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="usuario-nombre" [(ngModel)]="user.name" #usuarionombre placeholder="Nombre">
+      </div>
+      <label for="usuario-apellido" class="col-sm-2 col-form-label">Apellido</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" id="usuario-apellido" [(ngModel)]="user.last_name" #usuarioapellido placeholder="Apellido">
+      </div>
+  	</div>  	
+
+  	<div class="form-group row">
+      <label for="usuario-tipo-doc" class="col-sm-2 col-form-label">Tipo Doc.</label>
+      <div class="col-sm-4">
+        	<select id="usuario-perfil" #tipodoc class="form-control" value='1'>
+        		<option value="1">DNI</option>
+        		<option value="2">Libreta Enrolamiento</option>
+        	</select>      
+    	</div>
+		<label for="usuario-apellido" class="col-sm-2 col-form-label">Número Doc</label>
+		<div class="col-sm-4">
+			<input type="number" class="form-control" id="usuario-apellido" [(ngModel)]="user.identification" #numdoc placeholder="Número">
+		</div>
+  	</div>
+    <div class="form-group row">
+      <label for="usuario-email" class="col-sm-2 col-form-label">Email</label>
+  		<div class="col-sm-4">
+    		<input type="email" class="form-control" id="usuario-email" [(ngModel)]="user.email" #usuarioemail placeholder="Email">
+  		</div>
+      	<label for="usuario-password" class="col-sm-2 col-form-label">Password</label>
+		<div class="col-sm-4">
+			<input type="password" class="form-control" id="usuario-password" [(ngModel)]="user.password" #usuariopassword placeholder="Password">
+		</div>
+  	</div>
+  	<div class="form-group row">
+      <label for="usuario-puesto" class="col-sm-2 col-form-label">Puesto</label>
+      <div class="col-sm-4">
+        	<select id="usuario-puesto" #usuariopuesto class="form-control" [(ngModel)]="user.user_profile.id">
+						<option *ngFor="let profile of profiles" value="{{profile.id}}">{{profile.name}}</option>
+        		<!-- <option value="0">Seleccione Puesto</option>
+        		<option value="1">Recolector</option>
+        		<option value="2">Mantenimiento</option>
+        		<option value="3">Limpieza</option> -->
+        	</select>
+      </div>
+      <label for="usuario-perfil" class=" col-sm-2 col-form-label">Administrador</label>      
+    <div class="form-check col-sm-4">
+      <label class="form-check-label">
+        <input type="checkbox" class="form-check-input" [(ngModel)]="user.root" #usuarioroot>
+
+      </label>
+    </div>
+    </div>
+  	<div class="form-group row">
+      <label for="usuario-perfil" class="col-sm-2 col-form-label">Zona</label>
+      <div class="col-sm-4">
+        	<select id="zoneID" class="form-control" #zoneID [(ngModel)]="user.zone.id">
+						<option *ngFor="let zone of zones" value="{{zone.id}}">{{zone.name}}</option>
+        	</select>
+      </div>
+    </div>
+    <div class="botones">
+		<div class="form-group row">
+			<div class="offset-sm-5 col-sm-2">
+				<button class="btn btn-primary btn-lg" (click)="add(usuarionombre.value, 
+																												usuarioapellido.value, 
+																												tipodoc.value, 
+																												numdoc.value, 
+																												usuarioemail.value, 
+																												usuariopassword.value, 
+																												usuariopuesto.value, 
+																												usuarioroot.value, 
+																												zoneID.value);">Guardar</button>
+			</div>      
+		</div>   	
+    </div>
+
+	<!-- <p>{{ f | json}}</p> -->
+</div>

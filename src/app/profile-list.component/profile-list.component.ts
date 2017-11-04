@@ -83,4 +83,8 @@ export class ListProfileComponent implements OnInit {
     this.page --;
     this.getProfiles();
   }
+
+  gotoDetail(id: number): void {
+    this.router.navigate(['/profileedit', id]);
+  }
 }

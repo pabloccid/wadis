@@ -98,17 +98,24 @@
             <table class="table">
               <thead class="thead-inverse">
                 <tr>
-                  <th>Tarea</th>
-                  <th>Descripcion</th>
-                  <th>Puesto</th>
-                  <th>Fecha Prevista</th>
-                  <th>Fecha Realización</th>
+                  <th>ID</th>
+                  <th>Description</th>
+                  <th>Start</th>
+                  <th>End</th>
+                  <th>Frecuency</th>
+                  <th>Task</th>
+                  <th>Profile</th>
                 </tr>
               </thead>
         
               <tr *ngFor="let plan of plans">
-
-    
+                <td>{{plan.plan.id}}</td>
+                <td>{{plan.plan.description}}</td>
+                <td>{{plan.plan.date_start}}</td>
+                <td>{{plan.plan.date_end}}</td>
+                <td>Cada {{plan.plan.frecuency}} {{plan.plan.frecuency_type?.name}}</td>
+                <td>{{plan.plan.task?.task_type?.name}}</td>
+                <td>{{plan.plan.task?.user_profile?.name}}</td>
               </tr>
             </table>
           </div>  

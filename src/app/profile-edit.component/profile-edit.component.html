@@ -1,0 +1,62 @@
+<h2>
+	Editar Perfil
+</h2>
+	<hr>
+	
+<div class="container" *ngIf="profile">
+	<div class="form-group row">
+			<label for="name" class="col-sm-2 col-form-label">Nombre</label>
+      <div class="col-sm-4">
+				<input type="text" class="form-control" id="name" #name placeholder="Nombre" [(ngModel)]="profile.name">
+			</div>    
+
+		</div>		
+
+    <div class="botones">
+		<div class="form-group row">
+			<div class="offset-sm-5 col-sm-2">
+				<button class="btn btn-primary btn-lg" (click)="add(profile.name);">Guardar</button>
+			</div>      
+		</div>   	
+		</div>
+		<h2>Tarea Asignadas</h2>
+		<div class="container">
+			<table class="table">
+				<thead class="thead-inverse">
+					<tr>
+						<th>ID</th>
+						<th>Nombre</th>
+						<th>Descripción</th>
+						<th>Acción</th>
+					</tr>
+				</thead>
+	
+				<tr *ngFor="let task of taskTypeAssigned">
+					<td>{{task.id}}</td>
+					<td>{{task.name}}</td>
+					<td>{{task.description}}</td>
+					<td><button type="button" class="btn btn-primary" (click)="unassign(profile.id, task.id)">Desasignar</button></td>
+				</tr>
+			</table>		
+
+		<h2>Tareas Sin Asignar</h2>
+		<div class="container">
+			<table class="table">
+				<thead class="thead-inverse">
+					<tr>
+						<th>ID</th>
+						<th>Nombre</th>
+						<th>Descripción</th>
+						<th>Acción</th>
+					</tr>
+				</thead>
+	
+				<tr *ngFor="let task of tasks">
+						<td>{{task.id}}</td>
+						<td>{{task.name}}</td>
+						<td>{{task.description}}</td>
+						<td><button type="button" class="btn btn-primary" (click)="assign(profile.id, task.id)">Asignar</button></td>
+				</tr>
+			</table>
+	<!-- <p>{{ f | json}}</p> -->
+</div>

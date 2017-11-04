@@ -1,3 +1,4 @@
+import { EditUserComponent } from './user-edit.component/user-edit.component';
 import { EditPlanComponent } from './plan-edit.component/plan-edit.component';
 import { CalendarComponent } from './calendar.component/calendar.component';
 import { NgModule } from '@angular/core';
@@ -40,6 +41,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { CalendarModule } from 'angular-calendar';
 import { NgDatepickerModule } from 'ng2-datepicker';
 import { ToAddressPipe } from './to-address.pipe';
+import { EditProfileComponent } from './profile-edit.component/profile-edit.component';
 
 @NgModule({
   imports: [
@@ -76,9 +78,12 @@ import { ToAddressPipe } from './to-address.pipe';
     NewPlanComponent,
     EditPlanComponent,
     ToAddressPipe,
-    LoginComponent
+    LoginComponent,
+    EditProfileComponent,
+    EditUserComponent
   ],
-  providers: [ HeroService, ContainerService, ZoneService, ProfileService, UserService, PlanService, AuthenticationService, GlobalEventsManager ],
+  providers: [ HeroService, ContainerService, ZoneService, ProfileService, UserService, PlanService, 
+               AuthenticationService, GlobalEventsManager ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -1,3 +1,4 @@
+import { EditUserComponent } from './user-edit.component/user-edit.component';
 import { LoginComponent } from './login.component/login.component';
 import { EditPlanComponent } from './plan-edit.component/plan-edit.component';
 import { NewPlanComponent } from './plan-new.component/plan-new.component';
@@ -18,6 +19,7 @@ import { ListAlertComponent } from './alert-list.component/alert-list.component'
 import { EditZoneComponent } from './zone-edit.component/zone-edit.component';
 import { EditContainerComponent } from './container-edit.component/container-edit.component';
 import { ListPlanComponent } from './plan-list.component/plan-list.component';
+import { EditProfileComponent } from './profile-edit.component/profile-edit.component';
 
 
 export const routes: Routes = [
@@ -38,7 +40,9 @@ export const routes: Routes = [
   { path: 'calendar',     component: CalendarComponent },
   { path: 'planlist',     component: ListPlanComponent },
   { path: 'plannew',    component: NewPlanComponent},
-  { path: 'planedit/:id',     component: EditPlanComponent }
+  { path: 'planedit/:id',     component: EditPlanComponent },
+  { path: 'profileedit/:id',     component: EditProfileComponent },
+  { path: 'useredit/:id',     component: EditUserComponent }
 ];
 
 @NgModule({

@@ -56,11 +56,13 @@ export class ContainerTask {
 }
 
 export class Task {
+  id: number;
   task_type: TaskType;
   user_profile: Profile;
 }
 
 export class TaskType {
+  id: number;
   name: String;
   description: String;
 }

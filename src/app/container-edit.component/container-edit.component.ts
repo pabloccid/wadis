@@ -68,6 +68,7 @@ export class EditContainerComponent implements OnInit {
                           this.container = container;
                           this.getHistory();
                           this.getTasks();
+                          this.getPlans();
                         });
   }
   ngOnInit(): void {
@@ -93,7 +94,7 @@ export class EditContainerComponent implements OnInit {
   postEditContainer(container: Container) {
     this.containerService.updateContainer(container).subscribe(
       (response) => {
-        console.log(response);
+        this.router.navigateByUrl('/containerlist');
       });
   }
 
@@ -112,6 +113,17 @@ export class EditContainerComponent implements OnInit {
     (response) => {
         this.tasks = response;
         console.log(this.tasks);
+        // this.containers.splice(0, 1);
+    });
+    // this.profileService.getProfileAPI().subscribe(data => this.profiles = data);
+
+  }
+
+  getPlans(): void {
+    this.containerService.getContainerPlans(this.container.id).subscribe(
+    (response) => {
+        this.plans = response;
+        console.log(this.plans);
         // this.containers.splice(0, 1);
     });
     // this.profileService.getProfileAPI().subscribe(data => this.profiles = data);

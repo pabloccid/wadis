@@ -4,6 +4,7 @@ import 'rxjs/Rx';
 import {Headers} from '@angular/http';
 import { Observable } from 'rxjs';
 import { Profile, ProfileServiceResponse } from './profile';
+import { Task, TaskType } from './container';
 // import { ZONES } from './mock-profile';
 
 @Injectable()
@@ -55,5 +56,29 @@ export class ProfileService {
             .map(response => response.json())
             .catch(this.handleError);
 
+    }
+
+    getProfileEdit(id: number): Observable<Profile> {
+        console.log('http://api.wadis.com.ar/userprofiles/' + id);
+        return this.http.get(`http://api.wadis.com.ar/userprofiles/` + id)
+        .map(response => response.json().data)
+        .catch(this.handleError);
+
+    }
+
+    getTasksProfile(id: number): Observable<Task[]> {
+        return this.http.get('http://api.wadis.com.ar/userprofiles/' + id + '/tasks/')
+        .map(response => response.json().data)
+        .catch(this.handleError);
+    }
+
+    assignTaskProfile(id_profile: number, id_task: number) {
+
+        return this.http
+        .post('http://api.wadis.com.ar/userprofiles/' + id_profile + '/tasktypes/' + id_task,
+                                    JSON.stringify({name: name}))
+        .toPromise()
+        .then(res => res.json().data as Profile)
+        .catch(this.handleError);
     }
 }

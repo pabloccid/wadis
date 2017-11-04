@@ -63,6 +63,11 @@ export class ContainerService {
         .map(response => response.json());
     }
 
+    getTasksSimple() {
+        return this.http.get('http://api.wadis.com.ar/tasktypes' + '?per_page=50')
+        .map(response => response.json());
+    }
+
     getContainersByZone(zone: number): Observable<ContainerServiceResponse> {
         return this.http.get('http://api.wadis.com.ar/zones/' + zone + '/containers')
         .map(response => response.json())
@@ -87,6 +92,14 @@ export class ContainerService {
     getContainerTasks(id: number): Observable<ContainerTask[]> {
         console.log('http://api.wadis.com.ar/containers/' + id + '/containertasks');
         return this.http.get('http://api.wadis.com.ar/containers/' + id + '/containertasks')
+        .map(response => response.json().data)
+        .catch(this.handleError);
+
+    }
+
+    getContainerPlans(id: number): Observable<Plan[]> {
+        console.log('http://api.wadis.com.ar/containers/' + id + '/containerplans');
+        return this.http.get('http://api.wadis.com.ar/containers/' + id + '/containerplans')
         .map(response => response.json().data)
         .catch(this.handleError);
 
