@@ -12,8 +12,11 @@
       <tr *ngFor="let profile of profiles">
           <td>{{profile.id}}</td>
           <td>{{profile.name}}</td>
-          <td><button type="button" class="btn btn-primary" (click)="gotoDetail(profile.id)">Editar</button></td>
-      </tr>
+          <td nowrap> 
+            <button type="button" class="btn btn-primary" (click)="gotoDetail(profile.id)"><i class="fa fa-pencil-square-o"></i></button>
+            <button type="button" class="btn btn-danger" (click)="delete(profile.id)"><i class="fa fa-trash"></i></button>
+          </td>      
+        </tr>
     </table>
     <div class="row">
       <div class="offset-sm-5 col-sm-2" style="text-align: center;">
@@ -21,7 +24,7 @@
           <ul class="pagination text-center">
             
             <li class="page-item" (click)="prevPage()" *ngIf="!(page === 1)"><a class="page-link">Anterior</a></li>
-            <li class="page-item" (click)="nextPage()" *ngIf="!(page === last_page)"><a class="page-link">Siguiente</a></li>
+            <li class="page-item" (click)="nextPage()" *ngIf="last_page && !(page === last_page)"><a class="page-link">Siguiente</a></li>
           </ul>
         </nav>
       </div>

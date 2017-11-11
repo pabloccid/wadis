@@ -85,10 +85,11 @@ export class ContainerService {
     getContainerHistory(id: number): Observable<States[]> {
         console.log('http://api.wadis.com.ar/containers/' + id + '/containerstates');
         return this.http.get('http://api.wadis.com.ar/containers/' + id + '/containerstates')
-        .map(response => response.json().data)
+        .map(response => response.json())
         .catch(this.handleError);
 
     }
+    
     getContainerTasks(id: number): Observable<ContainerTask[]> {
         console.log('http://api.wadis.com.ar/containers/' + id + '/containertasks');
         return this.http.get('http://api.wadis.com.ar/containers/' + id + '/containertasks')
@@ -136,5 +137,13 @@ export class ContainerService {
                         JSON.stringify({green: container.green, zone_id: container.zone_id, code: container.code}),
                         options
                     ).map(result => result.json());
+    }
+
+    deleteContainer(id: number): Observable<Container> {
+        // console.log('http://api.wadis.com.ar/containers/' + id);
+        return this.http.delete(`http://api.wadis.com.ar/containers/` + id)
+        .map(response => response.json().data)
+        .catch(this.handleError);
+
     }
 }

@@ -26,8 +26,11 @@
           <td><div class="btn btn-primary" *ngIf="user.root == 1">Admin</div></td>
           <td>{{user.zone?.name}}</td>
           <td>{{user.user_profile?.name}}</td>
-          <td><button type="button" class="btn btn-primary" (click)="gotoDetail(user.id)">Editar</button></td>
-      </tr>
+          <td nowrap> 
+            <button type="button" class="btn btn-primary" (click)="gotoDetail(user.id)"><i class="fa fa-pencil-square-o"></i></button>
+            <button type="button" class="btn btn-danger" (click)="delete(user.id)"><i class="fa fa-trash"></i></button>
+          </td>
+        </tr>
     </table>
     <div class="row">
       <div class="offset-sm-5 col-sm-2" style="text-align: center;">
@@ -35,7 +38,7 @@
           <ul class="pagination text-center">
             
             <li class="page-item" (click)="prevPage()" *ngIf="!(page === 1)"><a class="page-link">Anterior</a></li>
-            <li class="page-item" (click)="nextPage()" *ngIf="!(page === last_page)"><a class="page-link">Siguiente</a></li>
+            <li class="page-item" (click)="nextPage()" *ngIf="last_page && !(page === last_page)"><a class="page-link">Siguiente</a></li>
           </ul>
         </nav>
       </div>

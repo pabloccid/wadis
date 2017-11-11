@@ -81,4 +81,18 @@ export class ListPlanComponent implements OnInit {
   gotoDetail(id: number): void {
     this.router.navigate(['/planedit', id]);
   }
+
+  delete(id: number): void {
+    if (confirm('Está seguro que desea eliminar este registro?')) {
+      let index;
+      this.planService.deletePlan(id)
+      .subscribe(result => {
+                              index = this.plans.findIndex(x => x.id === result.id);
+                              if (index >= 0) {
+                                this.plans.splice(index, 1);
+                              }
+                            });
+    }
+  }
+
 }

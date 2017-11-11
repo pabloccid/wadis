@@ -87,4 +87,19 @@ export class ListProfileComponent implements OnInit {
   gotoDetail(id: number): void {
     this.router.navigate(['/profileedit', id]);
   }
+
+  delete(id: number): void {
+    if (confirm('Está seguro que desea eliminar este registro?')) {
+      let index;
+      this.profileService.deleteProfile(id)
+      .subscribe(result => {
+                              index = this.profiles.findIndex(x => x.id === result.id);
+                              if (index >= 0) {
+                                this.profiles.splice(index, 1);
+                              }
+                            },
+                 err => alert('No se pudo eliminar el perfil. Existen usuarios asignados.'));
+    }
+  }
+
 }

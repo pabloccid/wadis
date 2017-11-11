@@ -91,15 +91,6 @@ export class EditProfileComponent implements OnInit {
 
   }
 
-
-  postEditProfile(name: Profile) {
-    console.log(name);
-
-  }
-
-
-
-
   getTasks(): void {
     this.containerService.getTasksSimple().subscribe(
       (response) => {
@@ -170,8 +161,12 @@ export class EditProfileComponent implements OnInit {
     .subscribe(result => {container.latest_location.address = result; });
   }
 
+  postEditProfile(profile: Profile) {
+    this.profileService.updateProfile(profile).subscribe(
+      (response) => {
+        this.router.navigateByUrl('/profilelist');
+      });
+  }
+
 }
 
-// function findID(container) {
-//   return container.id =
-// }

@@ -87,18 +87,13 @@ export class EditUserComponent implements OnInit {
           });
   }
 
-  // onSelect(user: User): void {
-  //   this.selectedUser = user;
-  // }
 
   postEditUser(user: User) {
     this.userService.updateUser(user).subscribe(
       (response) => {
-        console.log(response);
+        this.router.navigateByUrl('/userlist');
       });
   }
-
-
 
   getEveryZone(): void {
     this.zoneService.getEveryZone().subscribe(

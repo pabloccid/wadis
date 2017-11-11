@@ -12,7 +12,10 @@
       <tr *ngFor="let zone of zones">
           <td>{{zone.id}}</td>
           <td>{{zone.name}}</td>
-          <td><button type="button" class="btn btn-primary" (click)="gotoDetail(zone.id)">Editar</button></td>
+          <td nowrap>
+            <button type="button" class="btn btn-primary" (click)="gotoDetail(zone.id)"><i class="fa fa-pencil-square-o"></i></button>
+            <button *ngIf="zone.id != 1" type="button" class="btn btn-danger" (click)="delete(zone.id)"><i class="fa fa-trash"></i></button>
+          </td>
       </tr>
     </table>
     <div class="row">

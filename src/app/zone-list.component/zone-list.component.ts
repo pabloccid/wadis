@@ -67,11 +67,21 @@ export class ListZoneComponent implements OnInit {
           });
   }
 
-  onSelect(zone: Zone): void {
-    this.selectedZone = zone;
-  }
   gotoDetail(id: number): void {
     this.router.navigate(['/zoneedit', id]);
+  }
+
+  delete(id: number): void {
+    if (confirm('Está seguro que desea eliminar este registro?')) {
+      let index;
+      this.zoneService.deleteZone(id)
+      .subscribe(result => {
+                              index = this.zones.findIndex(x => x.id === result.id);
+                              if (index >= 0) {
+                                this.zones.splice(index, 1);
+                              }
+                            });
+    }
   }
 
   public nextPage() {

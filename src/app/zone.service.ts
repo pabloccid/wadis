@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptions } from '@angular/http';
 import 'rxjs/Rx';
 import {Headers} from '@angular/http';
 import { Observable } from 'rxjs';
@@ -68,5 +68,21 @@ export class ZoneService {
             .map(response => response.json())
             .catch(this.handleError);
 
+    }
+
+    deleteZone(id: number): Observable<Zone> {
+        return this.http.delete(`http://api.wadis.com.ar/zones/` + id)
+        .map(response => response.json().data)
+        .catch(this.handleError);
+    }
+
+    updateZone(zone) {
+        let headers = new Headers({ 'Content-Type': 'application/json',
+        'Accept': 'q=0.8;application/json;q=0.9' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.patch(`http://api.wadis.com.ar/zones` + '/' + zone.id,
+                        JSON.stringify({name: zone.name}),
+                        options
+                    ).map(result => result.json());
     }
 }

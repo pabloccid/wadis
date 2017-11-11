@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptions } from '@angular/http';
 import 'rxjs/Rx';
 import {Headers} from '@angular/http';
 import { Observable } from 'rxjs';
@@ -96,6 +96,31 @@ export class PlanService {
                 .toPromise()
                 .then(res => res.json().data as Plan)
                 .catch(this.handleError);
+    }
+
+    deletePlan(id: number): Observable<Plan> {
+        return this.http.delete(`http://api.wadis.com.ar/plans/` + id)
+        .map(response => response.json().data)
+        .catch(this.handleError);
+    }
+
+    updatePlan(plan) {
+        let headers = new Headers({ 'Content-Type': 'application/json',
+        'Accept': 'q=0.8;application/json;q=0.9' });
+        let options = new RequestOptions({ headers: headers });
+        if (plan.date_end) {
+            return this.http.patch(`http://api.wadis.com.ar/plans` + '/' + plan.id,
+                            JSON.stringify({description: plan.description, task_id: plan.task_id, frecuency_type_id: plan.frecuency_type_id,
+                                            frecuency: plan.frecuency, date_start: plan.date_start, date_end: plan.date_end}),
+                            options
+                        ).map(result => result.json());
+        } else {
+            return this.http.patch(`http://api.wadis.com.ar/plans` + '/' + plan.id,
+            JSON.stringify({description: plan.description, task_id: plan.task_id, frecuency_type_id: plan.frecuency_type_id,
+                            frecuency: plan.frecuency, date_start: plan.date_start}),
+                            options
+                        ).map(result => result.json());
+        }
     }
 
 }

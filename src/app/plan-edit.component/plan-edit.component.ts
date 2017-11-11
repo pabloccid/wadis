@@ -93,13 +93,12 @@ export class EditPlanComponent implements OnInit {
   }
 
 
-  postEditPlan(name: Plan) {
-    console.log(name);
-
+  postEditPlan(plan: Plan) {
+    this.planService.updatePlan(plan).subscribe(
+      (response) => {
+        this.router.navigateByUrl('/planlist');
+      });
   }
-
-
-
 
   getContainers(): void {
     this.containerService.getContainersSimple().subscribe(
@@ -110,7 +109,7 @@ export class EditPlanComponent implements OnInit {
           let this2 = this;
           this.containers.forEach(function(element, index, object) {
             // console.log(element.latest_location.address);
-            if (element.latest_location.address === undefined) {
+            if (element.latest_location.address === null) {
               this2.getContainerAddress(element);
             }
           });
@@ -128,7 +127,7 @@ export class EditPlanComponent implements OnInit {
         let index: number;
         let this2 = this;
         this.containersAssigned.forEach(element => {
-          if (element.latest_location.address === undefined) {
+          if (element.latest_location.address === null) {
             this2.getContainerAddress(element);
           }
           index = this.containers.findIndex(x => x.id === element.id);
@@ -179,6 +178,3 @@ export class EditPlanComponent implements OnInit {
 
 }
 
-// function findID(container) {
-//   return container.id =
-// }

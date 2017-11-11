@@ -66,12 +66,21 @@ export class ListUserComponent implements OnInit {
           });
   }
 
-  onSelect(user: User): void {
-    this.selectedUser = user;
-  }
-
   gotoDetail(id: number): void {
     this.router.navigate(['/useredit', id]);
+  }
+
+  delete(id: number): void {
+    if (confirm('Está seguro que desea eliminar este registro?')) {
+      let index;
+      this.userService.deleteUser(id)
+      .subscribe(result => {
+                              index = this.users.findIndex(x => x.id === result.id);
+                              if (index >= 0) {
+                                this.users.splice(index, 1);
+                              }
+                            });
+    }
   }
 
   public nextPage() {

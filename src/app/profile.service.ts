@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptions } from '@angular/http';
 import 'rxjs/Rx';
 import {Headers} from '@angular/http';
 import { Observable } from 'rxjs';
@@ -80,5 +80,21 @@ export class ProfileService {
         .toPromise()
         .then(res => res.json().data as Profile)
         .catch(this.handleError);
+    }
+
+    deleteProfile(id: number): Observable<Profile> {
+        return this.http.delete(`http://api.wadis.com.ar/userprofiles/` + id)
+        .map(response => response.json().data)
+        .catch(this.handleError);
+    }
+
+    updateProfile(profile) {
+        let headers = new Headers({ 'Content-Type': 'application/json',
+        'Accept': 'q=0.8;application/json;q=0.9' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.patch(`http://api.wadis.com.ar/userprofiles` + '/' + profile.id,
+                        JSON.stringify({name: profile.name}),
+                        options
+                    ).map(result => result.json());
     }
 }

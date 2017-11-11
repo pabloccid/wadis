@@ -80,10 +80,6 @@ export class ListContainerComponent implements OnInit {
           });
   }
 
-  onSelect(container: Container): void {
-    this.selectedContainer = container;
-  }
-
   public nextPage() {
     this.page ++;
     this.getContainers();
@@ -97,6 +93,19 @@ export class ListContainerComponent implements OnInit {
 
   gotoDetail(id: number): void {
     this.router.navigate(['/containeredit', id]);
+  }
+
+  delete(id: number): void {
+    if (confirm('Está seguro que desea eliminar este registro?')) {
+      let index;
+      this.containerService.deleteContainer(id)
+      .subscribe(result => {
+                              index = this.containers.findIndex(x => x.id === result.id);
+                              if (index >= 0) {
+                                this.containers.splice(index, 1);
+                              }
+                            });
+    }
   }
 
   getContainerAddress(container) {

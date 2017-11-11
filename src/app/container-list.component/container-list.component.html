@@ -31,7 +31,10 @@
             <div class="btn btn-primary" *ngIf="container.latest_container_states.state_type==2">Nueva Ubicación</div>
             
           </td>
-          <td><button type="button" class="btn btn-primary" (click)="gotoDetail(container.id)">Editar</button></td>
+          <td nowrap> 
+            <button type="button" class="btn btn-primary" (click)="gotoDetail(container.id)"><i class="fa fa-pencil-square-o"></i></button>
+            <button type="button" class="btn btn-danger" (click)="delete(container.id)"><i class="fa fa-trash"></i></button>
+          </td>
       </tr>
     </table>
     <div class="row">
@@ -40,7 +43,7 @@
           <ul class="pagination text-center">
             
             <li class="page-item" (click)="prevPage()" *ngIf="!(page === 1)"><a class="page-link">Anterior</a></li>
-            <li class="page-item" (click)="nextPage()" *ngIf="!(page === last_page)"><a class="page-link">Siguiente</a></li>
+            <li class="page-item" (click)="nextPage()" *ngIf="last_page && !(page === last_page)"><a class="page-link">Siguiente</a></li>
           </ul>
         </nav>
       </div>

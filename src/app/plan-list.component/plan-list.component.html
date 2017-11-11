@@ -22,8 +22,11 @@
           <td>Cada {{plan.frecuency}} {{plan.frecuency_type?.name}}</td>
           <td>{{plan.task?.task_type?.name}}</td>
           <td>{{plan.task?.user_profile?.name}}</td>
-          <td><button type="button" class="btn btn-primary" (click)="gotoDetail(plan.id)">Editar</button></td>
-      </tr>
+          <td nowrap> 
+            <button type="button" class="btn btn-primary" (click)="gotoDetail(plan.id)"><i class="fa fa-pencil-square-o"></i></button>
+            <button type="button" class="btn btn-danger" (click)="delete(plan.id)"><i class="fa fa-trash"></i></button>
+          </td>
+        </tr>
     </table>
     <div class="row">
       <div class="offset-sm-5 col-sm-2" style="text-align: center;">
@@ -31,7 +34,7 @@
           <ul class="pagination text-center">
             
             <li class="page-item" (click)="prevPage()" *ngIf="!(page === 1)"><a class="page-link">Anterior</a></li>
-            <li class="page-item" (click)="nextPage()" *ngIf="!(page === last_page)"><a class="page-link">Siguiente</a></li>
+            <li class="page-item" (click)="nextPage()" *ngIf="last_page && !(page === last_page)"><a class="page-link">Siguiente</a></li>
           </ul>
         </nav>
       </div>

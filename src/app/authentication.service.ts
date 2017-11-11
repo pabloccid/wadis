@@ -26,7 +26,7 @@ export class AuthenticationService {
 
   login(user) {
     return this.http
-    .post('http://api.wadis.com.ar/login?email=' + user.username + '&password=' + user.password,
+    .post('http://api.wadis.com.ar/loginweb?email=' + user.username + '&password=' + user.password,
                             JSON.stringify({name: name}))
                             .map((res: Response) => {
                               if (res.json().data) {

@@ -40,7 +40,7 @@
           <ul class="pagination text-center">
             
             <li class="page-item" (click)="prevPage()" *ngIf="!(page === 1)"><a class="page-link">Anterior</a></li>
-            <li class="page-item" (click)="nextPage()" *ngIf="!(page === last_page)"><a class="page-link">Siguiente</a></li>
+            <li class="page-item" (click)="nextPage()" *ngIf="last_page && !(page === last_page)"><a class="page-link">Siguiente</a></li>
           </ul>
         </nav>
       </div>

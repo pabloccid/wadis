@@ -67,6 +67,7 @@ export class UserService {
         .then(res => res.json().data as User)
         .catch(this.handleError);
     }
+    
     getUserAPI(page: number): Observable<UserServiceResponse> {
         if (page === 1) {
             return this.http.get(`http://api.wadis.com.ar/users`)
@@ -84,14 +85,23 @@ export class UserService {
         'Accept': 'q=0.8;application/json;q=0.9' });
         let options = new RequestOptions({ headers: headers });
         return this.http.patch('http://api.wadis.com.ar/users/' + user.id,
-                        JSON.stringify({green: user.green, zone_id: user.zone_id, code: user.code}),
+                        JSON.stringify({name: user.name, last_name: user.last_name, identification: user.identification,
+                        email: user.email, password: user.password, zone_id: user.zone.id, user_profile_id: user.user_profile.id,
+                        root: user.root, username: user.identification
+                        }),
                         options
-                    ).map(result => result.json());
+                    ).map(result => {console.log(result); result.json(); });
     }
 
     getUserEdit(id: number): Observable<User> {
         console.log('http://api.wadis.com.ar/users/' + id);
         return this.http.get(`http://api.wadis.com.ar/users/` + id)
+        .map(response => response.json().data)
+        .catch(this.handleError);
+    }
+
+    deleteUser(id: number): Observable<User> {
+        return this.http.delete(`http://api.wadis.com.ar/users/` + id)
         .map(response => response.json().data)
         .catch(this.handleError);
     }

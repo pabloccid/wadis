@@ -77,9 +77,11 @@ export class EditZoneComponent implements OnInit {
   //   this.selectedZone = zone;
   // }
 
-  postEditZone(name: Zone) {
-    // console.log(name);
-
+  postEditZone(zone: Zone) {
+    this.zoneService.updateZone(zone).subscribe(
+      (response) => {
+        this.router.navigateByUrl('/zonelist');
+      });
   }
 
   getContainers(): void {
