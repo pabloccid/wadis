@@ -109,13 +109,13 @@
               </thead>
         
               <tr *ngFor="let plan of plans">
-                <td>{{plan.plan.id}}</td>
-                <td>{{plan.plan.description}}</td>
-                <td>{{plan.plan.date_start}}</td>
-                <td>{{plan.plan.date_end}}</td>
-                <td>Cada {{plan.plan.frecuency}} {{plan.plan.frecuency_type?.name}}</td>
-                <td>{{plan.plan.task?.task_type?.name}}</td>
-                <td>{{plan.plan.task?.user_profile?.name}}</td>
+                <td>{{plan.id}}</td>
+                <td>{{plan.description}}</td>
+                <td>{{plan.date_start}}</td>
+                <td>{{plan.date_end}}</td>
+                <td>Cada {{plan.frecuency}} {{plan.frecuency_type?.name}}</td>
+                <td>{{plan.task?.task_type?.name}}</td>
+                <td>{{plan.task?.user_profile?.name}}</td>
               </tr>
             </table>
           </div>  
